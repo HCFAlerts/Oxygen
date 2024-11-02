@@ -9,3 +9,5 @@
 * Kick System: Send player to the Hub
 
 SRC and Jar available at https://dsc.gg/liteclubdevelopment
+
+[![https://github.com/HCFAlerts/Oxygen](https://github.com/ePlus-DEV/view-counter/blob/main/svg/profile/badge.svg)](https://github.com/ePlus-DEV/view-counter)

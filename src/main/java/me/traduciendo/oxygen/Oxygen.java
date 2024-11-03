@@ -23,20 +23,12 @@ import net.md_5.bungee.event.EventHandler;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
-
-/**
- * @author Traduciendo
- * @Oxygen project
- * SRC and Jar available at dsc.gg/liteclubdevelopment
- * or github.com/HCFAlerts --> github.com/liteclubdevelopment
- */
 
 @Getter
 @Setter
@@ -70,44 +62,6 @@ public class Oxygen extends Plugin implements Listener {
 
         this.loadConfig();
         this.startCountdown();
-        if (!this.getDataFolder().exists()) {
-            this.getDataFolder().mkdir();
-            File file = new File(this.getDataFolder(), "config.yml");
-            if (!file.exists()) {
-                try {
-                    Object t = null;
-
-                    try {
-                        InputStream in = this.getResourceAsStream("config.yml");
-
-                        try {
-                            Files.copy(in, file.toPath(), new CopyOption[0]);
-                        } finally {
-                            if (in != null) {
-                                in.close();
-                            }
-
-                        }
-                    } finally {
-                        Object t2;
-                        if (t == null) {
-                            t2 = null;
-                        } else {
-                            t2 = null;
-                            if (t != t2) {
-                                ((Throwable)t).addSuppressed((Throwable)t2);
-                            }
-                        }
-
-                    }
-                } catch (IOException var15) {
-                    var15.printStackTrace();
-                }
-            }
-        }
-
-        this.saveDefaultConfig();
-        this.reloadConfig();
     }
 
     protected Configuration getConfig() {
@@ -115,35 +69,35 @@ public class Oxygen extends Plugin implements Listener {
     }
 
     public void reloadConfig() {
-        try {
-            this.config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(this.getDataFolder(), "config.yml"));
-        } catch (IOException var2) {
-            throw new RuntimeException("Unable to load configuration", var2);
-        }
+        this.loadConfig();
+        this.saveConfig();
     }
 
     protected void saveConfig() {
         try {
             ConfigurationProvider.getProvider(YamlConfiguration.class).save(this.getConfig(), new File(this.getDataFolder(), "config.yml"));
-        } catch (IOException var2) {
-            throw new RuntimeException("Unable to save configuration", var2);
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to save configuration", e);
         }
     }
 
-    private void saveDefaultConfig() {
-    }
-
-    public void onDisable() {
-        configYML.getConfiguration().set("WHITELIST.PLAYERS", this.bungeeHandler.getWhitelists());
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&3&m=============================="));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&bOxygen Core &8- &fv" + getDescription().getVersion()));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(""));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&3┃ &bAuthor&f: Traduciendo"));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&3┃ &bState&f: &cDisabled"));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(""));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&7&oThank you for using Oxygen Bungee Core"));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&7&oJoin our Discord dsc.gg/liteclubdevelopment"));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&3&m=============================="));
+    private void loadConfig() {
+        File file = new File(this.getDataFolder(), "config.yml");
+        if (!file.exists()) {
+            if (!this.getDataFolder().exists()) {
+                this.getDataFolder().mkdir();
+            }
+            try (InputStream in = this.getResourceAsStream("config.yml")) {
+                Files.copy(in, file.toPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            this.config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void files() {
@@ -177,25 +131,6 @@ public class Oxygen extends Plugin implements Listener {
         configYML.reload();
     }
 
-    private void loadConfig() {
-        File file = new File(this.getDataFolder(), "config.yml");
-        if (!file.exists()) {
-            if (!this.getDataFolder().exists()) {
-                this.getDataFolder().mkdir();
-            }
-            try (InputStream in = this.getResourceAsStream("config.yml")) {
-                Files.copy(in, file.toPath());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        try {
-            this.config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     @EventHandler
     public void onPing(ProxyPingEvent e) {
         ServerPing sp = e.getResponse();
@@ -226,64 +161,33 @@ public class Oxygen extends Plugin implements Listener {
         if (diff < 0L) {
             return config.getString("END.TEXT");
         } else {
-            long days;
-            long hours;
-            long minutes;
-            long seconds;
-            long rhours;
-            long rminutes;
-            long rseconds;
+            long days = TimeUnit.MILLISECONDS.toDays(diff);
+            long hours = TimeUnit.MILLISECONDS.toHours(diff) % 24;
+            long minutes = TimeUnit.MILLISECONDS.toMinutes(diff) % 60;
+            long seconds = TimeUnit.MILLISECONDS.toSeconds(diff) % 60;
 
-            if (config.getInt("CLOCK-TYPE") == 1) {
-                days = TimeUnit.MILLISECONDS.toDays(diff);
-                hours = TimeUnit.MILLISECONDS.toHours(diff);
-                minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
-                seconds = TimeUnit.MILLISECONDS.toSeconds(diff);
-                rhours = days == 0L ? hours : hours % (days * 24L);
-                rminutes = hours == 0L ? minutes : minutes % (hours * 60L);
-                rseconds = minutes == 0L ? seconds : seconds % (minutes * 60L);
+            StringBuilder sb = new StringBuilder();
 
-                StringBuilder sb = new StringBuilder();
-
-                if (days > 1L) {
-                    sb.append(days).append(config.getString("DAYS"));
-                }
-                if (days == 1L) {
-                    sb.append(days).append(config.getString("DAY"));
-                }
-                if (rhours > 1L) {
-                    sb.append((days > 0L ? " " : "")).append(rhours).append(config.getString("HOURS"));
-                }
-                if (rhours == 1L) {
-                    sb.append((days > 0L ? " " : "")).append(rhours).append(config.getString("HOUR"));
-                }
-                if (rminutes > 1L) {
-                    sb.append((days <= 0L && hours <= 0L ? "" : " ")).append(rminutes).append(config.getString("MINUTES"));
-                }
-                if (rminutes == 1L) {
-                    sb.append((days <= 0L && hours <= 0L ? "" : " ")).append(rminutes).append(config.getString("MINUTE"));
-                }
-                if (rseconds > 1L) {
-                    sb.append((days <= 0L && hours <= 0L && minutes <= 0L ? "" : " ")).append(rseconds).append(config.getString("SECONDS"));
-                }
-                if (rseconds == 1L) {
-                    sb.append((days <= 0L && hours <= 0L && minutes <= 0L ? "" : " ")).append(rseconds).append(config.getString("SECOND"));
-                }
-
-                return sb.toString();
-            } else if (config.getInt("CLOCK-TYPE") == 2) {
-                days = TimeUnit.MILLISECONDS.toSeconds(diff);
-                hours = TimeUnit.MILLISECONDS.toMinutes(diff);
-                minutes = TimeUnit.MILLISECONDS.toHours(diff);
-                seconds = TimeUnit.MILLISECONDS.toDays(diff);
-                rhours = seconds == 0L ? minutes : minutes % (seconds * 24L);
-                rminutes = minutes == 0L ? hours : hours % (minutes * 60L);
-                rseconds = hours == 0L ? days : days % (hours * 60L);
-
-                return days + ":" + rhours + ":" + rminutes + ":" + rseconds;
-            } else {
-                return null;
+            if (days > 0) {
+                sb.append(days).append(config.getString("TIMER.DAYS"));
             }
+
+            if (hours > 0) {
+                if (sb.length() > 0) sb.append(" ");
+                sb.append(hours).append(config.getString("TIMER.HOURS"));
+            }
+
+            if (minutes > 0) {
+                if (sb.length() > 0) sb.append(" ");
+                sb.append(minutes).append(config.getString("TIMER.MINUTES"));
+            }
+
+            if (seconds > 0) {
+                if (sb.length() > 0) sb.append(" ");
+                sb.append(seconds).append(config.getString("TIMER.SECONDS"));
+            }
+
+            return sb.toString();
         }
     }
 
@@ -309,5 +213,19 @@ public class Oxygen extends Plugin implements Listener {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public void onDisable() {
+        configYML.getConfiguration().set("WHITELIST.PLAYERS", this.bungeeHandler.getWhitelists());
+        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&3&m=============================="));
+        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&bOxygen Core &8- &fv" + getDescription().getVersion()));
+        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(""));
+        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&3┃ &bAuthor&f: Traduciendo"));
+        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&3┃ &bState&f: &cDisabled"));
+        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(""));
+        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&7&oThank you for using Oxygen Bungee Core"));
+        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&7&oJoin our Discord dsc.gg/liteclubdevelopment"));
+        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&3&m=============================="));
+        this.saveConfig();
     }
 }

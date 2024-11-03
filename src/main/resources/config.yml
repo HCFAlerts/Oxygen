@@ -11,18 +11,19 @@ TIME:
   TIMEZONE: 'EST' # GMT, UTC-3, etc
 
 # MOTD Config
-MOTD: '&b&lServerName &7| &3&l50% OFF &f@ &3&l/store &c❤ %newline% &7» &a&lHCF SOTW &ftakes place in &b&l&n%time%' # Placeholders: %newline%, %time%
+MOTD: '&b&lServerName &7┃ &3&l50% OFF &f@ &3&lbuy.myserver.net &c❤ %newline% &7» &a&lHCF SOTW &ftakes place in &b&l&n%time%' # Placeholders: %newline%, %time%
 
 # End Config
 END:
   TEXT: '&b&l&nRIGHT NOW!!'
   COMMAND: '' # Example: whitelist off
 
-# Time Format
-DAYS: 'd' # d, day, etc
-HOURS: 'h' # h, hour, hrs, etc
-MINUTES: 'm' # m, minute, mins, etc
-SECONDS: 's' # s, seconds, secs, etc
+# Timer Format
+TIMER:
+  DAYS: 'd' # d, day, etc
+  HOURS: 'h' # h, hour, hrs, etc
+  MINUTES: 'm' # m, minute, mins, etc
+  SECONDS: 's' # s, seconds, secs, etc
 
 # Misc Config
 SLOTS: 3500 # Max Slots

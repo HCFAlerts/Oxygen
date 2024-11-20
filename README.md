@@ -2,7 +2,7 @@
 
 
 
-# Oxygen | v1.0.1
+# Oxygen | v1.1
 * By LiteClubDevelopment, Traduciendo
 ---
 

@@ -19,11 +19,11 @@ import java.util.UUID;
 public class MaintenanceCommand extends Command {
 
     public MaintenanceCommand() {
-        super("bungeewhitelist", "bungeecord.command.maintenance", "maintenance", "maintenancemode", "bwl");
+        super("bungeewhitelist", "oxygen.command.maintenance", "maintenance", "maintenancemode", "whitelist");
     }
     
     public void execute(CommandSender sender, String[] args) {
-        if (!sender.hasPermission("bungeecord.command.maintenance")) {
+        if (!sender.hasPermission("oxygen.command.maintenance")) {
             sender.sendMessage("&cYou don't have permissions.");
             return;
         }
@@ -34,13 +34,13 @@ public class MaintenanceCommand extends Command {
         }
 
         if (args[0].equalsIgnoreCase("on")) {
-            sender.sendMessage(CC.translate("&aThe server is now whitelisted."));
+            sender.sendMessage(CC.translate("&aBungeecord is now whitelisted."));
             Oxygen.getInstance().whitelist(true);
             return;
         }
 
         if (args[0].equalsIgnoreCase("off")) {
-            sender.sendMessage(CC.translate("&cThe server is no longer whitelisted."));
+            sender.sendMessage(CC.translate("&cBungeecord is no longer whitelisted."));
             Oxygen.getInstance().whitelist(false);
             return;
         }

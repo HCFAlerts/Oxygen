@@ -23,6 +23,7 @@ import net.md_5.bungee.event.EventHandler;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,7 +43,7 @@ public class Oxygen extends Plugin implements Listener {
     private ScheduledTask countdown;
 
     public void onEnable() {
-        Oxygen.instance = this;
+        instance = this;
         this.files();
         this.handlers();
         this.listeners();

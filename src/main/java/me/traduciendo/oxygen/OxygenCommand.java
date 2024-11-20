@@ -5,17 +5,17 @@ import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.plugin.Command;
 
 public class OxygenCommand extends Command {
-   private Oxygen plugin;
+   private final Oxygen plugin;
 
    public OxygenCommand(Oxygen plugin) {
-      super("oxygen", "", "commands", "omotd", "ocore");
+      super("oxygen", "", "motd", "omotd", "ocore");
       this.plugin = plugin;
    }
 
    @Override
    public void execute(CommandSender sender, String[] args) {
       if (!sender.hasPermission("oxygen.admin")) {
-         sender.sendMessage(CC.translate("&cYou do not have permission to execute this command."));
+         sender.sendMessage(CC.translate("&cYou don't have permission to execute this command."));
          return;
       }
 

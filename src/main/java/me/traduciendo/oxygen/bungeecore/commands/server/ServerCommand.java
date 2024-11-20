@@ -20,7 +20,7 @@ public class ServerCommand extends Command {
     private final CreatorYML config = Oxygen.getInstance().getConfigYML();
 
     public ServerCommand() {
-        super("server", "bungeecord.command.server");
+        super("server", "oxygen.command.server");
     }
 
     @Override
@@ -32,7 +32,7 @@ public class ServerCommand extends Command {
 
         if (commandSender instanceof ProxiedPlayer) {
             ProxiedPlayer player = (ProxiedPlayer) commandSender;
-            if (player.hasPermission("bungeecord.command.server")) {
+            if (player.hasPermission("oxygen.command.server")) {
                 if (args.length == 0) {
                     player.sendMessage(CC.translate((config.getConfiguration().getString("SERVER.CONNECTED") + " " + player.getServer().getInfo().getName() + (config.getConfiguration().getString("SERVER.CONNECTED_FINAL")))));
                     StringBuilder servers = new StringBuilder(CC.translate((config.getConfiguration().getString("SERVER.SERVERS"))));

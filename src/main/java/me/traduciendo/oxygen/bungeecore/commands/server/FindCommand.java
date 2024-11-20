@@ -18,7 +18,7 @@ public class FindCommand extends Command {
     private final CreatorYML config = Oxygen.getInstance().getConfigYML();
 
     public FindCommand() {
-        super("find", "bungeecord.command.find", "findplayer", "find player", "look", "lookup", "where", "whereis");
+        super("find", "oxygen.command.find", "findplayer", "find player", "look", "lookup", "where", "whereis");
     }
 
     @Override

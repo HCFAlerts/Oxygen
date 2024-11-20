@@ -59,13 +59,6 @@ public class HubCommand extends Command {
                 return;
             }
 
-            /*
-            Hubcores:
-            4 = 3
-            3 = 2
-            2 = 1
-            */
-
             if (Integer.parseInt(args[0]) < 2) {
                 player.sendMessage(CC.translate(config.getConfiguration().getString("HUB.MESSAGE") + " " +
                         (config.getConfiguration().getString("HUB.HUB-NAME") + args[0] +

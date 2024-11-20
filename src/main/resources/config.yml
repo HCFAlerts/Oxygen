@@ -1,36 +1,97 @@
 #=============================================#
 #                                             #
-#              Oxygen | v1.0.0                #
+#               Oxygen | v1.1                 #
 #            LiteClubDevelopment              #
 #                                             #
 #=============================================#
 
-# Time Config
+# MOTD
 TIME:
   DATE: '11/02/24 17:00:00' # Format is "MM/dd/yy HH:mm:ss", hour format in 24h clock
   TIMEZONE: 'EST' # GMT, UTC-3, etc
-
-# MOTD Config
 MOTD: '&b&lServerName &7┃ &3&l50% OFF &f@ &3&lbuy.myserver.net &c❤ %newline% &7» &a&lHCF SOTW &ftakes place in &b&l&n%time%' # Placeholders: %newline%, %time%
-
-# End Config
 END:
   TEXT: '&b&l&nRIGHT NOW!!'
   COMMAND: '' # Example: whitelist off
-
-# Timer Format
 TIMER:
   DAYS: 'd' # d, day, etc
   HOURS: 'h' # h, hour, hrs, etc
   MINUTES: 'm' # m, minute, mins, etc
   SECONDS: 's' # s, seconds, secs, etc
-
-# Misc Config
 SLOTS: 3500 # Max Slots
 CLOCK-TYPE: 1 # 1 for custom or 2 for d:h:m:s clock
 
+# Chat
+CHATS:
+  DEFAULT:
+    ENABLED: true
+    PERM: "oxygen.chat.default"
+    PERM_ENABLED: false
+    FORMAT: "%addon% %tag% %rank% %player%&7: &f%message%"
+    ADDON_ENABLED: true
+  DONATOR:
+    ENABLED: true
+    PERM: "oxygen.chat.donator"
+    PERM_ENABLED: true
+    FORMAT: "&a[Donator] %tag%%rank%%player%&7: &f%message%"
+    ADDON_ENABLED: true
+    ADDON: "&a[Donator]" # Addon display on default chat, example: [Donator] [$$$] [Mod] Traduciendo: Example Message
+  STAFF:
+    ENABLED: true
+    PERM: "oxygen.chat.staff"
+    PERM_ENABLED: true
+    FORMAT: "&b[Staff] %tag%%rank%%player%&7: &f%message%"
+    ADDON_ENABLED: true
+    ADDON: "&b[Staff]" # Addon display on default chat, example: [Staff] [$$$] [Mod] Traduciendo: Example Message
+  ADMIN:
+    ENABLED: true
+    PERM: "oxygen.chat.admin"
+    PERM_ENABLED: true
+    FORMAT: "&c[Admin] %tag%%rank%%player%&7: &f%message%"
+    ADDON_ENABLED: true
+    ADDON: "&c[Admin]" # Addon display on default chat, example: [Admin] [$$$] [Mod] Traduciendo: Example Message
+  CUSTOM:
+    ENABLED: true
+    PERM: "oxygen.chat.custom"
+    PERM_ENABLED: true
+    FORMAT: "&5[Custom] %tag%%rank%%player%&7: &f%message%"
+    ADDON_ENABLED: true
+    ADDON: "&5[Custom]" # Addon display on default chat, example: [Custom] [$$$] [Mod] Traduciendo: Example Message
+
+# Tag
+TAGS:
+  HEART: # oxygen.tag.heart
+    ENABLED: true
+    NAME: "Heart"
+    DISPLAY_NAME: "&c❤"
+    DISPLAY_LORE_SELECT:
+      - "&7Click to select %display_name%&7 tag."
+    DISPLAY_LORE_UN_SELECT:
+      - "&7Click to remove %display_name%&7 tag."
+    DISPLAY_LORE_NO_PERMISSION:
+      - "&7Buy %display_name%&7 tag at /store"
+    PREFIX: "&c❤"
+    SLOT: 1
+  RICH: # oxygen.tag.rich
+    ENABLED: true
+    NAME: "Rich"
+    DISPLAY_NAME: "&a$&2$&a$"
+    DISPLAY_LORE_SELECT:
+      - "&7Click to select %display_name%&7 tag."
+    DISPLAY_LORE_UN_SELECT:
+      - "&7Click to remove %display_name%&7 tag."
+    DISPLAY_LORE_NO_PERMISSION:
+      - "&7Buy %display_name%&7 tag at /store"
+    PREFIX: "&a$&2$&a$"
+    SLOT: 2
+
+# Messages
+KICK:
+  ENABLED: true
+  MESSAGE: "&cKicked from &f"
+
 # Maintenance Mode
-MAINTENANCE: # bungeecord.command.maintenance
+MAINTENANCE: # oxygen.command.maintenance
   ENABLED: false
   HUB-NAME: "Hub-01"
   PING-TEXT: "&4Whitelisted" # Player Slots Text
@@ -42,12 +103,8 @@ MAINTENANCE: # bungeecord.command.maintenance
     - "&cJoin our Discord&7: &9discord.servername.net"
     - ""
   PLAYERS: []
-  
-# Kick System
-KICK:
-  MESSAGE: "&cKicked from &f"
 
-# Media Commands
+# Commands
 TEAMSPEAK:
   ENABLED: true
   MESSAGE:
@@ -78,8 +135,6 @@ WEBSITE:
     - "&7&m-----------------------------"
     - "&bWebsite&7: &f&owww.servername.net"
     - "&7&m-----------------------------"
-
-# Help Command
 HELP:
   ENABLED: true
   MESSAGE:
@@ -94,10 +149,13 @@ HELP:
     - ""
     - "&4⚠ &cFor instant assistance join our teamspeak!"
     - "&7&m----------------------------------------"
-
-# Misc Utils Commands
-FIND:
+HUB:
   ENABLED: true
+  MESSAGE: "&aSending you to the &f"
+  FINAL: "&a..." # Final Message: &aSending you to the &fHub-01&a...
+  HUB-NAME: "Hub-0" # Automatic Hub Detection.
+FIND:
+  ENABLED: true # oxygen.command.find
   MESSAGE: "&fis currently on"
   FINAL: "&f." # Final Message: &4<player> &fis currently on &4<server>&f.
   PLAYER_COLOR: "&4" # Only works in main message.
@@ -105,11 +163,6 @@ FIND:
   OFFLINE: "&cis currently not on the network."
   OFFLINE_PLAYER_COLOR: "&c" # Only works in offline message.
   USAGE: "&cUsage: /find <player>"
-HUB:
-  ENABLED: true
-  MESSAGE: "&aSending you to the &f"
-  FINAL: "&a..." # Final Message: &aSending you to the &fHub-01&a...
-  HUB-NAME: "Hub-0" # Automatic Hub Detection.
 SERVER:
   ENABLED: true
   MESSAGE: "&aConnecting you to &f"
@@ -119,5 +172,5 @@ SERVER:
   USAGE: "&cConnect to a server with &f/server <name>&c."
   SERVERS: "&aServers&7: &f"
   FORMAT: "&7, &f" # Ex: &aServers&7: &fLobby&7, &fHCF
-  NO_PERMISSION: "&cYou don't have permissions or server don't exist." # bungeecord.command.server
+  NO_PERMISSION: "&cYou don't have permissions or server don't exist." # oxygen.command.server
   

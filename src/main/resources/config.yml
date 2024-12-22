@@ -1,6 +1,6 @@
 #=============================================#
 #                                             #
-#               Oxygen | v1.1                 #
+#               Oxygen | v1.2                 #
 #            LiteClubDevelopment              #
 #                                             #
 #=============================================#
@@ -20,70 +20,6 @@ TIMER:
   SECONDS: 's' # s, seconds, secs, etc
 SLOTS: 3500 # Max Slots
 CLOCK-TYPE: 1 # 1 for custom or 2 for d:h:m:s clock
-
-# Chat
-CHATS:
-  DEFAULT:
-    ENABLED: true
-    PERM: "oxygen.chat.default"
-    PERM_ENABLED: false
-    FORMAT: "%addon% %tag% %rank% %player%&7: &f%message%"
-    ADDON_ENABLED: true
-  DONATOR:
-    ENABLED: true
-    PERM: "oxygen.chat.donator"
-    PERM_ENABLED: true
-    FORMAT: "&a[Donator] %tag%%rank%%player%&7: &f%message%"
-    ADDON_ENABLED: true
-    ADDON: "&a[Donator]" # Addon display on default chat, example: [Donator] [$$$] [Mod] Traduciendo: Example Message
-  STAFF:
-    ENABLED: true
-    PERM: "oxygen.chat.staff"
-    PERM_ENABLED: true
-    FORMAT: "&b[Staff] %tag%%rank%%player%&7: &f%message%"
-    ADDON_ENABLED: true
-    ADDON: "&b[Staff]" # Addon display on default chat, example: [Staff] [$$$] [Mod] Traduciendo: Example Message
-  ADMIN:
-    ENABLED: true
-    PERM: "oxygen.chat.admin"
-    PERM_ENABLED: true
-    FORMAT: "&c[Admin] %tag%%rank%%player%&7: &f%message%"
-    ADDON_ENABLED: true
-    ADDON: "&c[Admin]" # Addon display on default chat, example: [Admin] [$$$] [Mod] Traduciendo: Example Message
-  CUSTOM:
-    ENABLED: true
-    PERM: "oxygen.chat.custom"
-    PERM_ENABLED: true
-    FORMAT: "&5[Custom] %tag%%rank%%player%&7: &f%message%"
-    ADDON_ENABLED: true
-    ADDON: "&5[Custom]" # Addon display on default chat, example: [Custom] [$$$] [Mod] Traduciendo: Example Message
-
-# Tag
-TAGS:
-  HEART: # oxygen.tag.heart
-    ENABLED: true
-    NAME: "Heart"
-    DISPLAY_NAME: "&c❤"
-    DISPLAY_LORE_SELECT:
-      - "&7Click to select %display_name%&7 tag."
-    DISPLAY_LORE_UN_SELECT:
-      - "&7Click to remove %display_name%&7 tag."
-    DISPLAY_LORE_NO_PERMISSION:
-      - "&7Buy %display_name%&7 tag at /store"
-    PREFIX: "&c❤"
-    SLOT: 1
-  RICH: # oxygen.tag.rich
-    ENABLED: true
-    NAME: "Rich"
-    DISPLAY_NAME: "&a$&2$&a$"
-    DISPLAY_LORE_SELECT:
-      - "&7Click to select %display_name%&7 tag."
-    DISPLAY_LORE_UN_SELECT:
-      - "&7Click to remove %display_name%&7 tag."
-    DISPLAY_LORE_NO_PERMISSION:
-      - "&7Buy %display_name%&7 tag at /store"
-    PREFIX: "&a$&2$&a$"
-    SLOT: 2
 
 # Messages
 KICK:
@@ -149,28 +85,21 @@ HELP:
     - ""
     - "&4⚠ &cFor instant assistance join our teamspeak!"
     - "&7&m----------------------------------------"
+
 HUB:
   ENABLED: true
-  MESSAGE: "&aSending you to the &f"
-  FINAL: "&a..." # Final Message: &aSending you to the &fHub-01&a...
-  HUB-NAME: "Hub-0" # Automatic Hub Detection.
+  MESSAGE: "&aSending you to the &fHub-0%server%&a..."
 FIND:
-  ENABLED: true # oxygen.command.find
-  MESSAGE: "&fis currently on"
-  FINAL: "&f." # Final Message: &4<player> &fis currently on &4<server>&f.
-  PLAYER_COLOR: "&4" # Only works in main message.
-  SERVER_COLOR: "&4" # Only works in main message.
-  OFFLINE: "&cis currently not on the network."
-  OFFLINE_PLAYER_COLOR: "&c" # Only works in offline message.
+  ENABLED: true
+  MESSAGE: "&4%player% &cis currently on &4%server%&f."
+  OFFLINE: "&4%player% &cis currently not on the network."
   USAGE: "&cUsage: /find <player>"
 SERVER:
   ENABLED: true
-  MESSAGE: "&aConnecting you to &f"
-  FINAL: "&a!" # Final Message: &aConnecting you to &f<server>&a!
-  CONNECTED: "&cYou are currently connected to &f"
-  CONNECTED_FINAL: "&c." # Final Message: &cYou are currently connected to &f<server>&c.
+  MESSAGE: "&aConnecting you to &f%server%&a!"
+  CONNECTED: "&cYou are currently connected to &f%server%&c."
   USAGE: "&cConnect to a server with &f/server <name>&c."
   SERVERS: "&aServers&7: &f"
-  FORMAT: "&7, &f" # Ex: &aServers&7: &fLobby&7, &fHCF
-  NO_PERMISSION: "&cYou don't have permissions or server don't exist." # oxygen.command.server
+  FORMAT: " &f" # Ex: &aServers&7: &fLobby &fHCF
+  NO_PERMISSION: "&cYou don't have permissions or server don't exist."
   

@@ -4,6 +4,7 @@ import me.traduciendo.oxygen.Oxygen;
 import me.traduciendo.oxygen.utils.CC;
 import me.traduciendo.oxygen.utils.CreatorYML;
 import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
@@ -18,7 +19,7 @@ public class FindCommand extends Command {
     private final CreatorYML config = Oxygen.getInstance().getConfigYML();
 
     public FindCommand() {
-        super("find", "oxygen.command.find", "findplayer", "find player", "look", "lookup", "where", "whereis");
+        super("find", "oxygen.command.find", "findplayer", "lookup");
     }
 
     @Override
@@ -33,20 +34,15 @@ public class FindCommand extends Command {
             return;
         }
 
-        ProxiedPlayer player = Oxygen.getInstance().getProxy().getPlayer(args[0]);
-        if (player == null) {
-            sender.sendMessage(CC.translate(
-                    config.getConfiguration().getString("FIND.OFFLINE_PLAYER_COLOR") + args[0] + " " +
-                            config.getConfiguration().getString("FIND.OFFLINE")
-            ));
-            return;
-        }
+        ProxiedPlayer target = ProxyServer.getInstance().getPlayer(args[0]);
+        String message = target == null
+                ? config.getConfiguration().getString("FIND.OFFLINE")
+                .replace("%player%", args[0])
+                : config.getConfiguration().getString("FIND.MESSAGE")
+                .replace("%player%", target.getName())
+                .replace("%server%", target.getServer().getInfo().getName());
 
-        sender.sendMessage(CC.translate(
-                config.getConfiguration().getString("FIND.PLAYER_COLOR") + player.getName() +
-                        config.getConfiguration().getString("FIND.MESSAGE") + " " +
-                        config.getConfiguration().getString("FIND.SERVER_COLOR") + player.getServer().getInfo().getName() +
-                        config.getConfiguration().getString("FIND.FINAL")
-        ));
+        sender.sendMessage(CC.translate(message));
     }
 }
+

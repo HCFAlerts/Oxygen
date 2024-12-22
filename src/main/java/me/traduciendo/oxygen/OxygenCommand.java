@@ -21,9 +21,9 @@ public class OxygenCommand extends Command {
 
       if (args.length == 0) {
          sender.sendMessage(CC.translate("&3&m=============================="));
-         sender.sendMessage(CC.translate("&b&lOxygen&7 &8- &7" + plugin.getDescription().getVersion()));
+         sender.sendMessage(CC.translate("&bOxygen&7 &8- &7" + plugin.getDescription().getVersion()));
          sender.sendMessage(CC.translate(""));
-         sender.sendMessage(CC.translate("&b&l┃ &f/oxygen reload"));
+         sender.sendMessage(CC.translate("&3┃ &f/oxygen reload"));
          sender.sendMessage(CC.translate("&3&m=============================="));
          return;
       }
@@ -31,8 +31,8 @@ public class OxygenCommand extends Command {
       if (args[0].equalsIgnoreCase("reload")) {
          plugin.reloadConfig();
          sender.sendMessage(CC.translate("&3&m=============================="));
-         sender.sendMessage(CC.translate("&b&lOxygen&7 &areloaded successfully!"));
-         sender.sendMessage(CC.translate("&b&l┃ &7Reloaded files: &fconfig.yml"));
+         sender.sendMessage(CC.translate("&bOxygen&7 &areloaded successfully!"));
+         sender.sendMessage(CC.translate("&3┃ &7Reloaded files: &fconfig.yml"));
          sender.sendMessage(CC.translate("&3&m=============================="));
       } else {
          sender.sendMessage(CC.translate("&cInvalid command. Use /oxygen reload."));

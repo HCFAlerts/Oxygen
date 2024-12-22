@@ -197,7 +197,7 @@ public class Oxygen extends Plugin implements Listener {
             if (getCountdown() == 0) {
                 this.getProxy().getScheduler().cancel(this.scheduledTask);
                 this.getProxy().getPluginManager().dispatchCommand(this.getProxy().getConsole(), this.config.getString("END.COMMAND"));
-                System.out.println("Finish Command has been successfully executed!");
+                System.out.println("End Command has been successfully executed!");
             }
         }, 0L, 1L, TimeUnit.SECONDS);
     }

@@ -4,6 +4,7 @@
 
 # Oxygen | v1.2
 * By LiteClubDevelopment, Traduciendo
+* Available for download on [BuiltByBit](https://builtbybit.com/resources/oxygen-modern-bungee-core.54077/)
 ---
 
 ### Features

@@ -21,13 +21,17 @@ public class ServerCommand extends Command {
     private final CreatorYML config = Oxygen.getInstance().getConfigYML();
 
     public ServerCommand() {
-        super("server", "oxygen.command.server");
+        super(
+                "server",
+                Oxygen.getInstance().getConfiguration().getString("SERVER.PERMISSION", "oxygen.command.server"),
+                Oxygen.getInstance().getConfiguration().getStringList("SERVER.ALIASES").toArray(new String[0])
+        );
     }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (!config.getConfiguration().getBoolean("SERVER.ENABLED", true)) {
-            sender.sendMessage(CC.translate("&cThis command is currently disabled."));
+            sender.sendMessage(CC.translate(config.getConfiguration().getString("GENERAL.DISABLED_COMMAND")));
             return;
         }
 

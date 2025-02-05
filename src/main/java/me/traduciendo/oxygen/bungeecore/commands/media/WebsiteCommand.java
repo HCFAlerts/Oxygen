@@ -18,7 +18,11 @@ public class WebsiteCommand extends Command {
     private final CreatorYML config = Oxygen.getInstance().getConfigYML();
 
     public WebsiteCommand() {
-        super("website", "", "web");
+        super(
+                "website",
+                Oxygen.getInstance().getConfiguration().getString("WEBSITE.PERMISSION", ""),
+                Oxygen.getInstance().getConfiguration().getStringList("WEBSITE.ALIASES").toArray(new String[0])
+        );
     }
 
     @Override
@@ -28,7 +32,7 @@ public class WebsiteCommand extends Command {
         }
 
         if (!config.getConfiguration().getBoolean("WEBSITE.ENABLED", true)) {
-            sender.sendMessage(CC.translate("&cThis command is currently disabled."));
+            sender.sendMessage(CC.translate(config.getConfiguration().getString("GENERAL.DISABLED_COMMAND")));
             return;
         }
 

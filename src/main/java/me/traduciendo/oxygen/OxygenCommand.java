@@ -15,25 +15,25 @@ public class OxygenCommand extends Command {
    @Override
    public void execute(CommandSender sender, String[] args) {
       if (!sender.hasPermission("oxygen.admin")) {
-         sender.sendMessage(CC.translate("&cYou don't have permission to execute this command."));
+         sender.sendMessage(CC.translate(Oxygen.getInstance().getConfig().getString("GENERAL.NO_PERMISSIONS")));
          return;
       }
 
       if (args.length == 0) {
-         sender.sendMessage(CC.translate("&3&m=============================="));
-         sender.sendMessage(CC.translate("&bOxygen&7 &8- &7" + plugin.getDescription().getVersion()));
+         sender.sendMessage(CC.translate(Theme.getSecondaryColor() + "&m=============================="));
+         sender.sendMessage(CC.translate(Theme.getPrimaryColor() + "Oxygen&7 &8- &fv" + plugin.getDescription().getVersion()));
          sender.sendMessage(CC.translate(""));
-         sender.sendMessage(CC.translate("&3┃ &f/oxygen reload"));
-         sender.sendMessage(CC.translate("&3&m=============================="));
+         sender.sendMessage(CC.translate(Theme.getSecondaryColor() + "┃ &f/oxygen reload"));
+         sender.sendMessage(CC.translate(Theme.getSecondaryColor() + "&m=============================="));
          return;
       }
 
       if (args[0].equalsIgnoreCase("reload")) {
          plugin.reloadConfig();
-         sender.sendMessage(CC.translate("&3&m=============================="));
-         sender.sendMessage(CC.translate("&bOxygen&7 &areloaded successfully!"));
-         sender.sendMessage(CC.translate("&3┃ &7Reloaded files: &fconfig.yml"));
-         sender.sendMessage(CC.translate("&3&m=============================="));
+         sender.sendMessage(CC.translate(Theme.getSecondaryColor() + "&m=============================="));
+         sender.sendMessage(CC.translate(Theme.getPrimaryColor() + "Oxygen&7 &areloaded successfully!"));
+         sender.sendMessage(CC.translate(Theme.getSecondaryColor() + "┃ &7Reloaded files: &fconfig.yml"));
+         sender.sendMessage(CC.translate(Theme.getSecondaryColor() + "&m=============================="));
       } else {
          sender.sendMessage(CC.translate("&cInvalid command. Use /oxygen reload."));
       }

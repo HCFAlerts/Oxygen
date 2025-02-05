@@ -23,7 +23,6 @@ import net.md_5.bungee.event.EventHandler;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,25 +46,30 @@ public class Oxygen extends Plugin implements Listener {
         this.files();
         this.handlers();
         this.listeners();
+        this.loadConfig();
+        Theme.loadColors();
         this.commands();
         this.getProxy().getPluginManager().registerListener(this, this);
         this.getProxy().getPluginManager().registerCommand(this, new OxygenCommand(this));
 
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&3&m=============================="));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&bOxygen Core &8- &fv" + getDescription().getVersion()));
+        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(Theme.getSecondaryColor() + "&m=============================="));
+        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(Theme.getPrimaryColor() + "Oxygen Core &8- &fv" + getDescription().getVersion()));
         BungeeCord.getInstance().getConsole().sendMessage(CC.translate(""));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&3┃ &bAuthor&f: Traduciendo"));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&3┃ &bState&f: &aEnabled"));
+        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(Theme.getSecondaryColor() + "┃ " + Theme.getPrimaryColor() + "Author&f: Traduciendo"));
+        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(Theme.getSecondaryColor() + "┃ " + Theme.getPrimaryColor() + "State&f: &aEnabled"));
         BungeeCord.getInstance().getConsole().sendMessage(CC.translate(""));
         BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&7&oThank you for using Oxygen Bungee Core"));
         BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&7&oJoin our Discord dsc.gg/liteclubdevelopment"));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&3&m=============================="));
+        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(Theme.getSecondaryColor() + "&m=============================="));
 
-        this.loadConfig();
         this.startCountdown();
     }
 
     protected Configuration getConfig() {
+        return this.config;
+    }
+
+    public Configuration getConfiguration() {
         return this.config;
     }
 
@@ -218,15 +222,15 @@ public class Oxygen extends Plugin implements Listener {
 
     public void onDisable() {
         configYML.getConfiguration().set("WHITELIST.PLAYERS", this.bungeeHandler.getWhitelists());
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&3&m=============================="));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&bOxygen Core &8- &fv" + getDescription().getVersion()));
+        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(Theme.getSecondaryColor() + "&m=============================="));
+        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(Theme.getPrimaryColor() + "Oxygen Core &8- &fv" + getDescription().getVersion()));
         BungeeCord.getInstance().getConsole().sendMessage(CC.translate(""));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&3┃ &bAuthor&f: Traduciendo"));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&3┃ &bState&f: &cDisabled"));
+        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(Theme.getSecondaryColor() + "┃ " + Theme.getPrimaryColor() + "Author&f: Traduciendo"));
+        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(Theme.getSecondaryColor() + "┃ " + Theme.getPrimaryColor() + "State&f: &cDisabled"));
         BungeeCord.getInstance().getConsole().sendMessage(CC.translate(""));
         BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&7&oThank you for using Oxygen Bungee Core"));
         BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&7&oJoin our Discord dsc.gg/liteclubdevelopment"));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&3&m=============================="));
+        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(Theme.getSecondaryColor() + "&m=============================="));
         this.saveConfig();
     }
 }

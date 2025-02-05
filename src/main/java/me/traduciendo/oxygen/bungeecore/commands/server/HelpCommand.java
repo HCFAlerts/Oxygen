@@ -18,13 +18,17 @@ public class HelpCommand extends Command {
     private final CreatorYML config = Oxygen.getInstance().getConfigYML();
 
     public HelpCommand() {
-        super("help", "");
+        super(
+                "help",
+                Oxygen.getInstance().getConfiguration().getString("HELP.PERMISSION", ""),
+                Oxygen.getInstance().getConfiguration().getStringList("HELP.ALIASES").toArray(new String[0])
+        );
     }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (!config.getConfiguration().getBoolean("HELP.ENABLED", true)) {
-            sender.sendMessage(CC.translate("&cThis command is currently disabled."));
+            sender.sendMessage(CC.translate(config.getConfiguration().getString("GENERAL.DISABLED_COMMAND")));
             return;
         }
 

@@ -19,13 +19,17 @@ public class FindCommand extends Command {
     private final CreatorYML config = Oxygen.getInstance().getConfigYML();
 
     public FindCommand() {
-        super("find", "oxygen.command.find", "findplayer", "lookup");
+        super(
+                "find",
+                Oxygen.getInstance().getConfiguration().getString("FIND.PERMISSION", "oxygen.command.find"),
+                Oxygen.getInstance().getConfiguration().getStringList("FIND.ALIASES").toArray(new String[0])
+        );
     }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (!config.getConfiguration().getBoolean("FIND.ENABLED", true)) {
-            sender.sendMessage(CC.translate("&cThis command is currently disabled."));
+            sender.sendMessage(CC.translate(config.getConfiguration().getString("GENERAL.DISABLED_COMMAND")));
             return;
         }
 

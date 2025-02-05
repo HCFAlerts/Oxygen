@@ -19,7 +19,11 @@ public class DiscordCommand extends Command {
     private final CreatorYML config = Oxygen.getInstance().getConfigYML();
 
     public DiscordCommand() {
-        super("discord", "", "dc");
+        super(
+                "discord",
+                Oxygen.getInstance().getConfiguration().getString("DISCORD.PERMISSION", ""),
+                Oxygen.getInstance().getConfiguration().getStringList("DISCORD.ALIASES").toArray(new String[0])
+        );
     }
 
     @Override
@@ -29,7 +33,7 @@ public class DiscordCommand extends Command {
         }
 
         if (!config.getConfiguration().getBoolean("DISCORD.ENABLED", true)) {
-            sender.sendMessage(CC.translate("&cThis command is currently disabled."));
+            sender.sendMessage(CC.translate(config.getConfiguration().getString("GENERAL.DISABLED_COMMAND")));
             return;
         }
 

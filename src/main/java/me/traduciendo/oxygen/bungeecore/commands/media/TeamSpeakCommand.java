@@ -19,7 +19,11 @@ public class TeamSpeakCommand extends Command {
     private final CreatorYML config = Oxygen.getInstance().getConfigYML();
 
     public TeamSpeakCommand() {
-        super("teamspeak", "", "ts3", "ts");
+        super(
+                "teamspeak",
+                Oxygen.getInstance().getConfiguration().getString("TEAMSPEAK.PERMISSION", ""),
+                Oxygen.getInstance().getConfiguration().getStringList("TEAMSPEAK.ALIASES").toArray(new String[0])
+        );
     }
 
     @Override
@@ -29,7 +33,7 @@ public class TeamSpeakCommand extends Command {
         }
 
         if (!config.getConfiguration().getBoolean("TEAMSPEAK.ENABLED", true)) {
-            sender.sendMessage(CC.translate("&cThis command is currently disabled."));
+            sender.sendMessage(CC.translate(config.getConfiguration().getString("GENERAL.DISABLED_COMMAND")));
             return;
         }
 

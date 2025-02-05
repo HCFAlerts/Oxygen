@@ -19,7 +19,11 @@ public class TwitterCommand extends Command {
     private final CreatorYML config = Oxygen.getInstance().getConfigYML();
 
     public TwitterCommand() {
-        super("twitter");
+        super(
+                "twitter",
+                Oxygen.getInstance().getConfiguration().getString("TWITTER.PERMISSION", ""),
+                Oxygen.getInstance().getConfiguration().getStringList("TWITTER.ALIASES").toArray(new String[0])
+        );
     }
 
     @Override
@@ -29,7 +33,7 @@ public class TwitterCommand extends Command {
         }
 
         if (!config.getConfiguration().getBoolean("TWITTER.ENABLED", true)) {
-            sender.sendMessage(CC.translate("&cThis command is currently disabled."));
+            sender.sendMessage(CC.translate(config.getConfiguration().getString("GENERAL.DISABLED_COMMAND")));
             return;
         }
 

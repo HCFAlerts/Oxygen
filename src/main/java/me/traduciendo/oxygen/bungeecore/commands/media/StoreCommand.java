@@ -19,7 +19,11 @@ public class StoreCommand extends Command {
     private final CreatorYML config = Oxygen.getInstance().getConfigYML();
 
     public StoreCommand() {
-        super("store");
+        super(
+                "store",
+                Oxygen.getInstance().getConfiguration().getString("STORE.PERMISSION", ""),
+                Oxygen.getInstance().getConfiguration().getStringList("STORE.ALIASES").toArray(new String[0])
+        );
     }
 
     @Override
@@ -29,7 +33,7 @@ public class StoreCommand extends Command {
         }
 
         if (!config.getConfiguration().getBoolean("STORE.ENABLED", true)) {
-            sender.sendMessage(CC.translate("&cThis command is currently disabled."));
+            sender.sendMessage(CC.translate(config.getConfiguration().getString("GENERAL.DISABLED_COMMAND")));
             return;
         }
 

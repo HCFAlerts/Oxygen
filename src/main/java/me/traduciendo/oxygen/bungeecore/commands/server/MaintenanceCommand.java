@@ -19,7 +19,11 @@ import java.util.UUID;
 public class MaintenanceCommand extends Command {
 
     public MaintenanceCommand() {
-        super("bungeewhitelist", "oxygen.command.maintenance", "maintenance", "maintenancemode", "whitelist");
+        super(
+                "maintenance",
+                Oxygen.getInstance().getConfiguration().getString("MAINTENANCE.PERMISSION", "oxygen.command.maintenance"),
+                Oxygen.getInstance().getConfiguration().getStringList("MAINTENANCE.ALIASES").toArray(new String[0])
+        );
     }
     
     public void execute(CommandSender sender, String[] args) {

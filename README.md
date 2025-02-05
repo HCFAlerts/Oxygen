@@ -2,7 +2,7 @@
 
 
 
-# Oxygen | v1.2
+# Oxygen | v1.3
 * By LiteClubDevelopment, Traduciendo
 * Available for download on [BuiltByBit](https://builtbybit.com/resources/oxygen-modern-bungee-core.54077/) and [GitHub](https://github.com/HCFAlerts/Oxygen/releases)
 ---

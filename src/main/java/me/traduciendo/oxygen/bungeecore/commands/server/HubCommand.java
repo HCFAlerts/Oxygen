@@ -1,6 +1,7 @@
 package me.traduciendo.oxygen.bungeecore.commands.server;
 
 import me.traduciendo.oxygen.Oxygen;
+import me.traduciendo.oxygen.Theme;
 import me.traduciendo.oxygen.utils.CC;
 import me.traduciendo.oxygen.utils.CreatorYML;
 import net.md_5.bungee.api.CommandSender;
@@ -55,7 +56,11 @@ public class HubCommand extends Command {
             return;
         }
 
-        player.sendMessage(CC.translate(config.getConfiguration().getString("HUB.MESSAGE").replace("%server%", targetHub.getName())));
+        player.sendMessage(CC.translate(config.getConfiguration().getString("HUB.MESSAGE")
+                .replace("%server%", targetHub.getName())
+                .replace("%theme_primary%", Theme.getPrimaryColor())
+                .replace("%theme_secondary%", Theme.getSecondaryColor())
+        ));
         player.connect(targetHub);
     }
 

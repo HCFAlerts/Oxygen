@@ -1,7 +1,13 @@
 package me.traduciendo.oxygen;
 
 import net.md_5.bungee.api.ChatColor;
-import me.traduciendo.oxygen.Oxygen;
+
+/**
+ * @author Traduciendo
+ * @Oxygen project
+ * SRC and Jar available at dsc.gg/liteclubdevelopment
+ * or github.com/HCFAlerts --> github.com/liteclubdevelopment
+ */
 
 public class Theme {
     private static String primaryColor;

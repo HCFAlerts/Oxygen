@@ -1,6 +1,7 @@
 package me.traduciendo.oxygen.bungeecore.commands.media;
 
 import me.traduciendo.oxygen.Oxygen;
+import me.traduciendo.oxygen.Theme;
 import me.traduciendo.oxygen.utils.CC;
 import me.traduciendo.oxygen.utils.CreatorYML;
 import net.md_5.bungee.api.CommandSender;
@@ -37,7 +38,10 @@ public class WebsiteCommand extends Command {
         }
 
         config.getConfiguration().getStringList("WEBSITE.MESSAGE").stream()
-                .map(CC::translate)
+                .map(msg -> CC.translate(
+                        msg.replace("%theme_primary%", Theme.getPrimaryColor())
+                                .replace("%theme_secondary%", Theme.getSecondaryColor())
+                ))
                 .forEach(sender::sendMessage);
     }
 }

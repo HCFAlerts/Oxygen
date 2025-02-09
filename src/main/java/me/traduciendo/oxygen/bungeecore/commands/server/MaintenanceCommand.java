@@ -28,7 +28,7 @@ public class MaintenanceCommand extends Command {
     
     public void execute(CommandSender sender, String[] args) {
         if (!sender.hasPermission("oxygen.command.maintenance")) {
-            sender.sendMessage("&cYou don't have permissions.");
+            sender.sendMessage(Oxygen.getInstance().getConfiguration().getString("GENERAL.NO_PERMISSIONS"));
             return;
         }
 

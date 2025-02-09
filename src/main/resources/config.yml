@@ -1,6 +1,6 @@
 #=============================================#
 #                                             #
-#               Oxygen | v1.3                 #
+#               Oxygen | v1.4                 #
 #            LiteClubDevelopment              #
 #                                             #
 #=============================================#
@@ -13,24 +13,27 @@ GENERAL:
 
 # MOTD
 TIME:
-  DATE: '11/02/24 17:00:00' # Format is "MM/dd/yy HH:mm:ss", hour format in 24h clock
-  TIMEZONE: 'EST' # GMT, UTC-3, etc
-MOTD: '&b&lServerName &7┃ &3&l50% OFF &f@ &3&lbuy.myserver.net &c❤ %newline% &7» &a&lHCF SOTW &ftakes place in &b&l&n%time%' # Placeholders: %newline%, %time%
+  DATE: "11/02/24 17:00:00" # Format is "MM/dd/yy HH:mm:ss", hour format in 24h clock
+  TIMEZONE: "EST" # GMT, UTC-3, etc
+MOTD: "&b&lServerName &7┃ &3&l50% OFF &f@ &3&lbuy.myserver.net &c❤ %newline% &7» &a&lHCF SOTW &ftakes place in &b&l&n%time%" # Placeholders: %newline%, %time%
 END:
-  TEXT: '&b&l&nRIGHT NOW!!'
-  COMMAND: '' # Example: whitelist off
+  TEXT: "&b&l&nRIGHT NOW!!"
+  COMMAND: "" # Example: whitelist off
 TIMER:
-  DAYS: 'd' # d, day, etc
-  HOURS: 'h' # h, hour, hrs, etc
-  MINUTES: 'm' # m, minute, mins, etc
-  SECONDS: 's' # s, seconds, secs, etc
+  DAYS: "d" # d, day, etc
+  HOURS: "h" # h, hour, hrs, etc
+  MINUTES: "m" # m, minute, mins, etc
+  SECONDS: "s" # s, seconds, secs, etc
 SLOTS: 3500 # Max Slots
 CLOCK-TYPE: 1 # 1 for custom or 2 for d:h:m:s clock
 
 # Messages
 KICK:
   ENABLED: true
-  MESSAGE: "&cKicked from &f"
+  MESSAGE:
+    - ""
+    - "&cKicked from %server%: &f%reason%"
+    - ""
 
 # Maintenance Mode
 MAINTENANCE:
@@ -42,6 +45,9 @@ MAINTENANCE:
     - "maintenancemode"
   HUB-NAME: "Hub-01"
   PING-TEXT: "&4Whitelisted" # Player Slots Text
+  PING-LORE:
+    - "&cThis server is under maintenance."
+    - "&cJoin our Discord: &9discord.servername.net"
   KICK-MESSAGE:
     - ""
     - "&cThe network is currently in maintenance."
@@ -51,7 +57,23 @@ MAINTENANCE:
     - ""
   PLAYERS: []
 
+NO-MAINTENANCE-PING-TEXT-ENABLED: false
+NO-MAINTENANCE-PING-TEXT: "0/3500"
+
+NO-MAINTENANCE-PING-LORE-ENABLED: true
+NO-MAINTENANCE-PING-LORE:
+  - "&7&m-----------------------------"
+  - "&d&lServerName &f&lNetwork &7(%online%/3,500)"
+  - ""
+  - "&dJoin our Discord&7: &f&odiscord.servername.net"
+  - "&7&m-----------------------------"
+
 # Commands
+OXYGEN_COMMAND:
+  PERMISSION: "oxygen.admin"
+  ALIASES:
+    - "motd"
+    - "omotd"
 TEAMSPEAK:
   ENABLED: true
   PERMISSION: ""
@@ -60,7 +82,7 @@ TEAMSPEAK:
     - "ts3"
   MESSAGE:
     - "&7&m-----------------------------"
-    - "&bTeamspeak&7: &f&ots.servername.net"
+    - "%theme_primary%Teamspeak&7: &f&ots.servername.net"
     - "&7&m-----------------------------"
 STORE:
   ENABLED: true
@@ -68,7 +90,7 @@ STORE:
   ALIASES: []
   MESSAGE:
     - "&7&m-----------------------------"
-    - "&bStore&7: &f&ostore.servername.net"
+    - "%theme_primary%Store&7: &f&ostore.servername.net"
     - "&7&m-----------------------------"
 DISCORD:
   ENABLED: true
@@ -77,7 +99,7 @@ DISCORD:
     - "dc"
   MESSAGE:
     - "&7&m-----------------------------"
-    - "&bDiscord&7: &f&odiscord.servername.net"
+    - "%theme_primary%Discord&7: &f&odiscord.servername.net"
     - "&7&m-----------------------------"
 TWITTER:
   ENABLED: true
@@ -85,7 +107,7 @@ TWITTER:
   ALIASES: []
   MESSAGE:
     - "&7&m-----------------------------"
-    - "&bTwitter&7: &f&o@ServerNameNET"
+    - "%theme_primary%Twitter&7: &f&o@ServerNameNET"
     - "&7&m-----------------------------"
 WEBSITE:
   ENABLED: true
@@ -94,7 +116,7 @@ WEBSITE:
     - "web"
   MESSAGE:
     - "&7&m-----------------------------"
-    - "&bWebsite&7: &f&owww.servername.net"
+    - "%theme_primary%Website&7: &f&owww.servername.net"
     - "&7&m-----------------------------"
 HELP:
   ENABLED: true

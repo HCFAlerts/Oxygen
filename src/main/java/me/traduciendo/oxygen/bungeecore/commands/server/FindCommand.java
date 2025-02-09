@@ -1,6 +1,7 @@
 package me.traduciendo.oxygen.bungeecore.commands.server;
 
 import me.traduciendo.oxygen.Oxygen;
+import me.traduciendo.oxygen.Theme;
 import me.traduciendo.oxygen.utils.CC;
 import me.traduciendo.oxygen.utils.CreatorYML;
 import net.md_5.bungee.api.CommandSender;
@@ -14,6 +15,7 @@ import net.md_5.bungee.api.plugin.Command;
  * SRC and Jar available at dsc.gg/liteclubdevelopment
  * or github.com/HCFAlerts --> github.com/liteclubdevelopment
  */
+
 public class FindCommand extends Command {
 
     private final CreatorYML config = Oxygen.getInstance().getConfigYML();
@@ -45,6 +47,9 @@ public class FindCommand extends Command {
                 : config.getConfiguration().getString("FIND.MESSAGE")
                 .replace("%player%", target.getName())
                 .replace("%server%", target.getServer().getInfo().getName());
+
+        message = message.replace("%theme_primary%", Theme.getPrimaryColor())
+                .replace("%theme_secondary%", Theme.getSecondaryColor());
 
         sender.sendMessage(CC.translate(message));
     }

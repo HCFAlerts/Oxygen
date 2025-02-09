@@ -49,7 +49,8 @@ public class ServerCommand extends Command {
 
     private void showCurrentServer(ProxiedPlayer player) {
         String currentServer = player.getServer().getInfo().getName();
-        player.sendMessage(CC.translate(config.getConfiguration().getString("SERVER.CONNECTED").replace("%server%", currentServer)));
+        player.sendMessage(CC.translate(config.getConfiguration().getString("SERVER.CONNECTED")
+                .replace("%server%", currentServer)));
 
         String serversList = ProxyServer.getInstance().getServers().keySet().stream()
                 .reduce(config.getConfiguration().getString("SERVER.SERVERS"), (list, server) -> list + server + config.getConfiguration().getString("SERVER.FORMAT"));

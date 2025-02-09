@@ -30,6 +30,13 @@ import java.util.Date;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author Traduciendo
+ * @Oxygen project
+ * SRC and Jar available at dsc.gg/liteclubdevelopment
+ * or github.com/HCFAlerts --> github.com/liteclubdevelopment
+ */
+
 @Getter
 @Setter
 public class Oxygen extends Plugin implements Listener {

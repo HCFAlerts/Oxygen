@@ -4,17 +4,28 @@ import me.traduciendo.oxygen.utils.CC;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.plugin.Command;
 
+/**
+ * @author Traduciendo
+ * @Oxygen project
+ * SRC and Jar available at dsc.gg/liteclubdevelopment
+ * or github.com/HCFAlerts --> github.com/liteclubdevelopment
+ */
+
 public class OxygenCommand extends Command {
    private final Oxygen plugin;
 
    public OxygenCommand(Oxygen plugin) {
-      super("oxygen", "", "motd", "omotd", "ocore");
+      super(
+              "oxygen",
+              "",
+              Oxygen.getInstance().getConfiguration().getStringList("OXYGEN_COMMAND.ALIASES").toArray(new String[0])
+      );
       this.plugin = plugin;
    }
 
    @Override
    public void execute(CommandSender sender, String[] args) {
-      if (!sender.hasPermission("oxygen.admin")) {
+      if (!sender.hasPermission(Oxygen.getInstance().getConfiguration().getString("OXYGEN_COMMAND.PERMISSION"))) {
          sender.sendMessage(CC.translate(Oxygen.getInstance().getConfig().getString("GENERAL.NO_PERMISSIONS")));
          return;
       }

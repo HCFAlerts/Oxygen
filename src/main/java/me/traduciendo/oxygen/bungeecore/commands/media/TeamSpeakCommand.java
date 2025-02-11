@@ -38,10 +38,11 @@ public class TeamSpeakCommand extends Command {
             return;
         }
 
-        config.getConfiguration().getStringList("TEAMSPEAK.MESSAGE").stream()
+        Oxygen.getInstance().getLangConfiguration().getStringList("SOCIAL.TEAMSPEAK.MESSAGE").stream()
                 .map(msg -> CC.translate(
-                        msg.replace("%theme_primary%", Theme.getPrimaryColor())
-                                .replace("%theme_secondary%", Theme.getSecondaryColor())
+                        msg.replace("%primary%", Theme.getPrimaryColor())
+                                .replace("%secondary%", Theme.getSecondaryColor())
+                                .replace("%middle%",  Theme.getMiddleColor())
                 ))
                 .forEach(sender::sendMessage);
     }

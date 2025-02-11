@@ -43,7 +43,7 @@ public class HubCommand extends Command {
         if (args.length == 1) {
             int hubNumber = parseHubNumber(args[0]);
             if (hubNumber < 0) {
-                player.sendMessage(CC.translate(config.getConfiguration().getString("HUB.INVALID_HUB_NUMBER")));
+                player.sendMessage(CC.translate(Oxygen.getInstance().getLangConfiguration().getString(("HUB_COMMAND.INVALID_HUB_NUMBER"))));
                 return;
             }
             targetHub = ProxyServer.getInstance().getServerInfo("Hub-0" + hubNumber);
@@ -52,14 +52,15 @@ public class HubCommand extends Command {
         }
 
         if (targetHub == null) {
-            player.sendMessage(CC.translate(config.getConfiguration().getString("HUB.NO_AVAILABLE_HUBS")));
+            player.sendMessage(CC.translate(Oxygen.getInstance().getLangConfiguration().getString(("HUB_COMMAND.NO_AVAILABLE_HUBS"))));
             return;
         }
 
-        player.sendMessage(CC.translate(config.getConfiguration().getString("HUB.MESSAGE")
+        player.sendMessage(CC.translate(Oxygen.getInstance().getLangConfiguration().getString(("HUB_COMMAND.SENDING"))
                 .replace("%server%", targetHub.getName())
-                .replace("%theme_primary%", Theme.getPrimaryColor())
-                .replace("%theme_secondary%", Theme.getSecondaryColor())
+                .replace("%primary%", Theme.getPrimaryColor())
+                .replace("%secondary%", Theme.getSecondaryColor())
+                .replace("%middle%", Theme.getMiddleColor())
         ));
         player.connect(targetHub);
     }

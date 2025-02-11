@@ -43,7 +43,7 @@ public class OxygenCommand extends Command {
          plugin.reloadConfig();
          sender.sendMessage(CC.translate(Theme.getSecondaryColor() + "&m=============================="));
          sender.sendMessage(CC.translate(Theme.getPrimaryColor() + "Oxygen&7 &areloaded successfully!"));
-         sender.sendMessage(CC.translate(Theme.getSecondaryColor() + "┃ &7Reloaded files: &fconfig.yml"));
+         sender.sendMessage(CC.translate(Theme.getSecondaryColor() + "┃ &7Reloaded files: &fconfig.yml&7, &flang.yml"));
          sender.sendMessage(CC.translate(Theme.getSecondaryColor() + "&m=============================="));
       } else {
          sender.sendMessage(CC.translate("&cInvalid command. Use /oxygen reload."));

@@ -5,6 +5,7 @@ import me.traduciendo.oxygen.Theme;
 import me.traduciendo.oxygen.utils.CC;
 import me.traduciendo.oxygen.utils.CreatorYML;
 import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
@@ -37,10 +38,16 @@ public class HelpCommand extends Command {
             return;
         }
 
-        config.getConfiguration().getStringList("HELP.MESSAGE").stream()
+        String onlinePlayers = String.valueOf(ProxyServer.getInstance().getOnlineCount());
+        String maxOnlinePlayers = String.valueOf(config.getConfiguration().getInt("SLOTS"));
+
+        Oxygen.getInstance().getLangConfiguration().getStringList("HELP_COMMAND.MESSAGE").stream()
                 .map(msg -> CC.translate(
-                        msg.replace("%theme_primary%", Theme.getPrimaryColor())
-                                .replace("%theme_secondary%", Theme.getSecondaryColor())
+                        msg.replace("%primary%", Theme.getPrimaryColor())
+                                .replace("%secondary%", Theme.getSecondaryColor())
+                                .replace("%middle%", Theme.getMiddleColor())
+                                .replace("%online%", onlinePlayers)
+                                .replace("%maxonline%", maxOnlinePlayers)
                 ))
                 .forEach(sender::sendMessage);
     }

@@ -1,12 +1,13 @@
 #=============================================#
 #                                             #
-#               Oxygen | v1.4                 #
+#               Oxygen | v1.5                 #
 #            LiteClubDevelopment              #
 #                                             #
 #=============================================#
 
 GENERAL:
   PRIMARY_COLOR: "&b"
+  MIDDLE_COLOR: "&f"
   SECONDARY_COLOR: "&3"
   NO_PERMISSIONS: "&cYou don't have permission to execute this command."
   DISABLED_COMMAND: "&cThis command is currently disabled."
@@ -20,10 +21,14 @@ END:
   TEXT: "&b&l&nRIGHT NOW!!"
   COMMAND: "" # Example: whitelist off
 TIMER:
-  DAYS: "d" # d, day, etc
-  HOURS: "h" # h, hour, hrs, etc
-  MINUTES: "m" # m, minute, mins, etc
-  SECONDS: "s" # s, seconds, secs, etc
+  DAYS: "d" # 2d (days)
+  DAY: "d" # 1d (day)
+  HOURS: "h" # 2h (hours)
+  HOUR: "h" # 1h (hour)
+  MINUTES: "m" # 2m (minutes)
+  MINUTE: "m" # 1m (minute)
+  SECONDS: "s" # 2s (seconds)
+  SECOND: "s" # 1s (second)
 SLOTS: 3500 # Max Slots
 CLOCK-TYPE: 1 # 1 for custom or 2 for d:h:m:s clock
 
@@ -44,7 +49,8 @@ MAINTENANCE:
     - "bwhitelist"
     - "maintenancemode"
   HUB-NAME: "Hub-01"
-  PING-TEXT: "&4Whitelisted" # Player Slots Text
+  PING-TEXT: "&4Whitelisted"
+  PING-LORE-ENABLED: true
   PING-LORE:
     - "&cThis server is under maintenance."
     - "&cJoin our Discord: &9discord.servername.net"
@@ -63,9 +69,9 @@ NO-MAINTENANCE-PING-TEXT: "0/3500"
 NO-MAINTENANCE-PING-LORE-ENABLED: true
 NO-MAINTENANCE-PING-LORE:
   - "&7&m-----------------------------"
-  - "&d&lServerName &f&lNetwork &7(%online%/3,500)"
+  - "&b&lServerName &f&lNetwork &7(%online%/3,500)"
   - ""
-  - "&dJoin our Discord&7: &f&odiscord.servername.net"
+  - "&bJoin our Discord&7: &f&odiscord.servername.net"
   - "&7&m-----------------------------"
 
 # Commands
@@ -74,92 +80,55 @@ OXYGEN_COMMAND:
   ALIASES:
     - "motd"
     - "omotd"
+
 TEAMSPEAK:
   ENABLED: true
   PERMISSION: ""
   ALIASES:
     - "ts"
     - "ts3"
-  MESSAGE:
-    - "&7&m-----------------------------"
-    - "%theme_primary%Teamspeak&7: &f&ots.servername.net"
-    - "&7&m-----------------------------"
+
 STORE:
   ENABLED: true
   PERMISSION: ""
   ALIASES: []
-  MESSAGE:
-    - "&7&m-----------------------------"
-    - "%theme_primary%Store&7: &f&ostore.servername.net"
-    - "&7&m-----------------------------"
+
 DISCORD:
   ENABLED: true
   PERMISSION: ""
   ALIASES:
     - "dc"
-  MESSAGE:
-    - "&7&m-----------------------------"
-    - "%theme_primary%Discord&7: &f&odiscord.servername.net"
-    - "&7&m-----------------------------"
+
 TWITTER:
   ENABLED: true
   PERMISSION: ""
   ALIASES: []
-  MESSAGE:
-    - "&7&m-----------------------------"
-    - "%theme_primary%Twitter&7: &f&o@ServerNameNET"
-    - "&7&m-----------------------------"
+
 WEBSITE:
   ENABLED: true
   PERMISSION: ""
   ALIASES:
     - "web"
-  MESSAGE:
-    - "&7&m-----------------------------"
-    - "%theme_primary%Website&7: &f&owww.servername.net"
-    - "&7&m-----------------------------"
+
 HELP:
   ENABLED: true
   PERMISSION: ""
   ALIASES: []
-  MESSAGE:
-    - "&7&m----------------------------------------"
-    - "&b&lServerName Network"
-    - ""
-    - "&3┃ &bTeamspeak&7: &f&ots.servername.net"
-    - "&3┃ &bTwitter&7: &f&o@ServerNameNET"
-    - "&3┃ &bStore&7: &f&ostore.servername.net"
-    - "&3┃ &bWebsite&7: &f&owww.servername.net"
-    - "&3┃ &bDiscord&7: &f&odiscord.servername.net"
-    - ""
-    - "&4⚠ &cFor instant assistance join our teamspeak!"
-    - "&7&m----------------------------------------"
 
 HUB:
   ENABLED: true
-  MESSAGE: "&aSending you to the &fHub-0%server%&a..."
-  INVALID_HUB_NUMBER: "&cInvalid hub number."
-  NO_AVAILABLE_HUBS: "&cNo hubs are available at the moment."
   PERMISSION: ""
   ALIASES:
     - "lobby"
+
 FIND:
   ENABLED: true
-  MESSAGE: "&4%player% &cis currently on &4%server%&f."
-  OFFLINE: "&4%player% &cis currently not on the network."
-  USAGE: "&cUsage: /find <player>"
   PERMISSION: "oxygen.command.find"
   ALIASES:
     - "findplayer"
+
 SERVER:
   ENABLED: true
-  MESSAGE: "&aConnecting you to &f%server%&a!"
-  CONNECTED: "&cYou are currently connected to &f%server%&c."
-  USAGE: "&cConnect to a server with &f/server <name>&c."
-  SERVERS: "&aServers&7: &f"
-  FORMAT: " &f" # Ex: &aServers&7: &fLobby &fHCF
   PERMISSION: "oxygen.command.server"
   ALIASES:
     - "play"
-  NO_PERMISSION: "&cYou don't have permissions or server don't exist."
-  

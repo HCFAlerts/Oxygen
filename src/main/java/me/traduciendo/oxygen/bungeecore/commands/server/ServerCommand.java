@@ -43,17 +43,17 @@ public class ServerCommand extends Command {
         } else if (args.length == 1) {
             connectToServer(player, args[0]);
         } else {
-            player.sendMessage(CC.translate(config.getConfiguration().getString("SERVER.USAGE")));
+            player.sendMessage(CC.translate(Oxygen.getInstance().getLangConfiguration().getString("SERVER_COMMAND.USAGE")));
         }
     }
 
     private void showCurrentServer(ProxiedPlayer player) {
         String currentServer = player.getServer().getInfo().getName();
-        player.sendMessage(CC.translate(config.getConfiguration().getString("SERVER.CONNECTED")
+        player.sendMessage(CC.translate(Oxygen.getInstance().getLangConfiguration().getString("SERVER_COMMAND.CONNECTED")
                 .replace("%server%", currentServer)));
 
         String serversList = ProxyServer.getInstance().getServers().keySet().stream()
-                .reduce(config.getConfiguration().getString("SERVER.SERVERS"), (list, server) -> list + server + config.getConfiguration().getString("SERVER.FORMAT"));
+                .reduce(Oxygen.getInstance().getLangConfiguration().getString("SERVER_COMMAND.SERVERS"), (list, server) -> list + server + Oxygen.getInstance().getLangConfiguration().getString("SERVER_COMMAND.FORMAT"));
 
         player.sendMessage(CC.translate(serversList));
     }
@@ -61,11 +61,11 @@ public class ServerCommand extends Command {
     private void connectToServer(ProxiedPlayer player, String serverName) {
         ServerInfo serverInfo = ProxyServer.getInstance().getServerInfo(serverName);
         if (serverInfo == null) {
-            player.sendMessage(CC.translate(config.getConfiguration().getString("SERVER.NO_PERMISSION")));
+            player.sendMessage(CC.translate(Oxygen.getInstance().getLangConfiguration().getString("SERVER_COMMAND.INVALID_SERVER").replace("%server%", serverName)));
             return;
         }
 
-        player.sendMessage(CC.translate(config.getConfiguration().getString("SERVER.MESSAGE").replace("%server%", serverName)));
+        player.sendMessage(CC.translate(Oxygen.getInstance().getLangConfiguration().getString("SERVER_COMMAND.CONNECTING").replace("%server%", serverName)));
         player.connect(serverInfo);
     }
 }

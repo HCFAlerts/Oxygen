@@ -33,18 +33,18 @@ public class MaintenanceCommand extends Command {
         }
 
         if (args.length < 1) {
-            sender.sendMessage(CC.translate("&cUsage: /maintenance <on|off|list|add|remove> <name>"));
+            sender.sendMessage(CC.translate(Oxygen.getInstance().getLangConfiguration().getString("MAINTENANCE.COMMAND_USAGE", "&cUsage: /maintenance <on|off|list|add|remove> <name>")));
             return;
         }
 
         if (args[0].equalsIgnoreCase("on")) {
-            sender.sendMessage(CC.translate("&aBungeecord is now whitelisted."));
+            sender.sendMessage(CC.translate(Oxygen.getInstance().getLangConfiguration().getString("MAINTENANCE.ENABLED", "&aBungeecord is now whitelisted.")));
             Oxygen.getInstance().whitelist(true);
             return;
         }
 
         if (args[0].equalsIgnoreCase("off")) {
-            sender.sendMessage(CC.translate("&cBungeecord is no longer whitelisted."));
+            sender.sendMessage(CC.translate(Oxygen.getInstance().getLangConfiguration().getString("MAINTENANCE.DISABLED", "&cBungeecord is no longer whitelisted.")));
             Oxygen.getInstance().whitelist(false);
             return;
         }
@@ -70,21 +70,22 @@ public class MaintenanceCommand extends Command {
         }
         try {
             if (args.length >= 2) {
+                String uuid2 = args[1];
+
                 if (args[0].equalsIgnoreCase("add")) {
-                    String uuid2 = args[1];
                     Oxygen.getInstance().getBungeeHandler().setWhitelisted(Objects.requireNonNull(MojangUtils.fetchUUID(uuid2)).toString(), true);
-                    sender.sendMessage(CC.translate("&aYou successfully added " + uuid2 + " to the whitelist!"));
+                    sender.sendMessage(CC.translate(Oxygen.getInstance().getLangConfiguration().getString("MAINTENANCE.ADDED", "&aYou successfully added %player% to the whitelist!").replace("%player%", uuid2)));
                     return;
                 }
+
                 if (args[0].equalsIgnoreCase("remove")) {
-                    String uuid2 = args[1];
                     Oxygen.getInstance().getBungeeHandler().setWhitelisted(Objects.requireNonNull(MojangUtils.fetchUUID(uuid2)).toString(), false);
-                    sender.sendMessage(CC.translate("&cYou successfully removed " + uuid2 + " from the whitelist!"));
+                    sender.sendMessage(CC.translate(Oxygen.getInstance().getLangConfiguration().getString("MAINTENANCE.REMOVED", "&cYou successfully removed %player% from the whitelist.").replace("%player%", uuid2)));
                     return;
                 }
             }
-        }
-        catch (Exception ignored) {}
-        sender.sendMessage(CC.translate("&cUsage: /maintenance <on|off|list|add|remove> <name>"));
+        } catch (Exception ignored) {}
+
+        sender.sendMessage(CC.translate(Oxygen.getInstance().getLangConfiguration().getString("MAINTENANCE.COMMAND_USAGE", "&cUsage: /maintenance <on|off|list|add|remove> <name>")));
     }
 }

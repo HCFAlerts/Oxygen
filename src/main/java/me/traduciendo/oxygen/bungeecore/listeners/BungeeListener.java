@@ -44,20 +44,22 @@ public class BungeeListener implements Listener {
                     9999
             ));
 
-            List<String> hoverText = config.getConfiguration().getStringList("MAINTENANCE.PING-LORE")
-                    .stream()
-                    .map(line -> line
-                            .replace("%online%", onlinePlayers)
-                            .replace("%maxonline%", maxOnlinePlayers)
-                    )
-                    .map(CC::translate)
-                    .collect(Collectors.toList());
+            if (config.getConfiguration().getBoolean("PING-LORE-ENABLED")) {
+                List<String> hoverText = config.getConfiguration().getStringList("MAINTENANCE.PING-LORE")
+                        .stream()
+                        .map(line -> line
+                                .replace("%online%", onlinePlayers)
+                                .replace("%maxonline%", maxOnlinePlayers)
+                        )
+                        .map(CC::translate)
+                        .collect(Collectors.toList());
 
-            response.setPlayers(new ServerPing.Players(Integer.parseInt(maxOnlinePlayers), ProxyServer.getInstance().getOnlineCount(), new ServerPing.PlayerInfo[0]));
-            response.getPlayers().setSample(hoverText.stream()
-                    .map(text -> new ServerPing.PlayerInfo(text, UUID.randomUUID()))
-                    .toArray(ServerPing.PlayerInfo[]::new)
-            );
+                response.setPlayers(new ServerPing.Players(Integer.parseInt(maxOnlinePlayers), ProxyServer.getInstance().getOnlineCount(), new ServerPing.PlayerInfo[0]));
+                response.getPlayers().setSample(hoverText.stream()
+                        .map(text -> new ServerPing.PlayerInfo(text, UUID.randomUUID()))
+                        .toArray(ServerPing.PlayerInfo[]::new)
+                );
+            }
         } else {
             if (config.getConfiguration().getBoolean("NO-MAINTENANCE-PING-TEXT-ENABLED")) {
                 response.setVersion(new ServerPing.Protocol(

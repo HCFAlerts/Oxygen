@@ -1,0 +1,65 @@
+MAINTENANCE:
+  ADDED: "&aSuccessfully added %player% to the whitelist!"
+  REMOVED: "&cSuccessfully removed %player% from the whitelist."
+  ENABLED: "&aBungeecord is now whitelisted."
+  DISABLED: "&cBungeecord is no longer whitelisted."
+  COMMAND_USAGE: "&cUsage: /maintenance <on|off|list|add|remove> <name>"
+
+HUB_COMMAND:
+  SENDING: "&aSending you to the &fHub-0%server%&a..."
+  INVALID_HUB_NUMBER: "&cInvalid hub number."
+  NO_AVAILABLE_HUBS: "&cNo hubs are available at the moment."
+
+FIND_COMMAND:
+  MESSAGE: "&4%player% &cis currently on &4%server%&f."
+  OFFLINE: "&4%player% &cis currently not on the network."
+  USAGE: "&cUsage: /find <player>"
+
+SERVER_COMMAND:
+  CONNECTING: "&aConnecting you to &f%server%&a!"
+  CONNECTED: "&cYou are currently connected to &f%server%&c."
+  USAGE: "&cConnect to a server with &f/server <name>&c."
+  SERVERS: "&aServers&7: &f"
+  FORMAT: " &f" # Ex: &aServers&7: &fLobby &fHCF
+  INVALID_SERVER: "&cInvalid server '%server%'."
+
+HELP_COMMAND:
+  MESSAGE:
+    - "&7&m----------------------------------------"
+    - "%primary%&lServerName Network &7(%online%/%maxonline%)"
+    - ""
+    - "%secondary%┃ %primary%Teamspeak&7: %middle%&ots.servername.net"
+    - "%secondary%┃ %primary%Twitter&7: %middle%&o@ServerNameNET"
+    - "%secondary%┃ %primary%Store&7: %middle%&ostore.servername.net"
+    - "%secondary%┃ %primary%Website&7: %middle%&owww.servername.net"
+    - "%secondary%┃ %primary%Discord&7: %middle%&odiscord.servername.net"
+    - ""
+    - "&4⚠ &cFor instant assistance join our teamspeak!"
+    - "&7&m----------------------------------------"
+
+SOCIAL:
+  DISCORD:
+    MESSAGE:
+      - "&7&m-----------------------------"
+      - "%primary%Discord&7: %middle%&odiscord.servername.net"
+      - "&7&m-----------------------------"
+  TEAMSPEAK:
+    MESSAGE:
+      - "&7&m-----------------------------"
+      - "%primary%Teamspeak&7: %middle%&ots.servername.net"
+      - "&7&m-----------------------------"
+  STORE:
+    MESSAGE:
+      - "&7&m-----------------------------"
+      - "%primary%Store&7: %middle%&ostore.servername.net"
+      - "&7&m-----------------------------"
+  WEBSITE:
+    MESSAGE:
+      - "&7&m-----------------------------"
+      - "%primary%Website&7: %middle%&owww.servername.net"
+      - "&7&m-----------------------------"
+  TWITTER:
+    MESSAGE:
+      - "&7&m-----------------------------"
+      - "%primary%Twitter&7: %middle%&o@ServerNameNET"
+      - "&7&m-----------------------------"

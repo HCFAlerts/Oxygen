@@ -41,10 +41,11 @@ public class DiscordCommand extends Command {
             return;
         }
 
-        config.getConfiguration().getStringList("DISCORD.MESSAGE").stream()
+        Oxygen.getInstance().getLangConfiguration().getStringList("SOCIAL.DISCORD.MESSAGE").stream()
                 .map(msg -> CC.translate(
-                        msg.replace("%theme_primary%", Theme.getPrimaryColor())
-                                .replace("%theme_secondary%", Theme.getSecondaryColor())
+                        msg.replace("%primary%", Theme.getPrimaryColor())
+                                .replace("%secondary%", Theme.getSecondaryColor())
+                                .replace("%middle%",  Theme.getMiddleColor())
                 ))
                 .forEach(sender::sendMessage);
     }

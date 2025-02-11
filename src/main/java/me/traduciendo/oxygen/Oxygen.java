@@ -45,7 +45,9 @@ public class Oxygen extends Plugin implements Listener {
     private BungeeHandler bungeeHandler;
     private ScheduledTask scheduledTask;
     private CreatorYML configYML;
+    private CreatorYML langYML;
     private Configuration config;
+    private Configuration langConfig;
     private ScheduledTask countdown;
 
     public void onEnable() {
@@ -54,6 +56,7 @@ public class Oxygen extends Plugin implements Listener {
         this.handlers();
         this.listeners();
         this.loadConfig();
+        this.loadLangConfig();
         Theme.loadColors();
         this.commands();
         this.getProxy().getPluginManager().registerListener(this, this);
@@ -80,16 +83,34 @@ public class Oxygen extends Plugin implements Listener {
         return this.config;
     }
 
+    protected Configuration getLangConfig() {
+        return this.langConfig;
+    }
+
+    public Configuration getLangConfiguration() {
+        return this.langConfig;
+    }
+
     public void reloadConfig() {
         this.loadConfig();
         this.saveConfig();
+        this.loadLangConfig();
+        this.saveLangConfig();
     }
 
     protected void saveConfig() {
         try {
             ConfigurationProvider.getProvider(YamlConfiguration.class).save(this.getConfig(), new File(this.getDataFolder(), "config.yml"));
         } catch (IOException e) {
-            throw new RuntimeException("Unable to save configuration", e);
+            throw new RuntimeException("Unable to save main configuration", e);
+        }
+    }
+
+    protected void saveLangConfig() {
+        try {
+            ConfigurationProvider.getProvider(YamlConfiguration.class).save(this.getLangConfig(), new File(this.getDataFolder(), "lang.yml"));
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to save lang configuration", e);
         }
     }
 
@@ -112,8 +133,28 @@ public class Oxygen extends Plugin implements Listener {
         }
     }
 
+    private void loadLangConfig() {
+        File file = new File(this.getDataFolder(), "lang.yml");
+        if (!file.exists()) {
+            if (!this.getDataFolder().exists()) {
+                this.getDataFolder().mkdir();
+            }
+            try (InputStream in = this.getResourceAsStream("lang.yml")) {
+                Files.copy(in, file.toPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            this.langConfig = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void files() {
         this.configYML = new CreatorYML(this, "config.yml");
+        this.langYML = new CreatorYML(this, "lang.yml");
     }
 
     private void handlers() {
@@ -181,22 +222,22 @@ public class Oxygen extends Plugin implements Listener {
             StringBuilder sb = new StringBuilder();
 
             if (days > 0) {
-                sb.append(days).append(config.getString("TIMER.DAYS"));
+                sb.append(days).append(config.getString(days == 1 ? "TIMER.DAY" : "TIMER.DAYS"));
             }
 
             if (hours > 0) {
                 if (sb.length() > 0) sb.append(" ");
-                sb.append(hours).append(config.getString("TIMER.HOURS"));
+                sb.append(hours).append(config.getString(hours == 1 ? "TIMER.HOUR" : "TIMER.HOURS"));
             }
 
             if (minutes > 0) {
                 if (sb.length() > 0) sb.append(" ");
-                sb.append(minutes).append(config.getString("TIMER.MINUTES"));
+                sb.append(minutes).append(config.getString(minutes == 1 ? "TIMER.MINUTE" : "TIMER.MINUTES"));
             }
 
             if (seconds > 0) {
                 if (sb.length() > 0) sb.append(" ");
-                sb.append(seconds).append(config.getString("TIMER.SECONDS"));
+                sb.append(seconds).append(config.getString(seconds == 1 ? "TIMER.SECOND" : "TIMER.SECONDS"));
             }
 
             return sb.toString();
@@ -238,6 +279,6 @@ public class Oxygen extends Plugin implements Listener {
         BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&7&oThank you for using Oxygen Bungee Core"));
         BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&7&oJoin our Discord dsc.gg/liteclubdevelopment"));
         BungeeCord.getInstance().getConsole().sendMessage(CC.translate(Theme.getSecondaryColor() + "&m=============================="));
-        this.saveConfig();
+        this.reloadConfig();
     }
 }

@@ -36,20 +36,21 @@ public class FindCommand extends Command {
         }
 
         if (args.length == 0) {
-            sender.sendMessage(CC.translate(config.getConfiguration().getString("FIND.USAGE")));
+            sender.sendMessage(CC.translate(Oxygen.getInstance().getLangConfiguration().getString("FIND_COMMAND.USAGE")));
             return;
         }
 
         ProxiedPlayer target = ProxyServer.getInstance().getPlayer(args[0]);
         String message = target == null
-                ? config.getConfiguration().getString("FIND.OFFLINE")
+                ? Oxygen.getInstance().getLangConfiguration().getString("FIND_COMMAND.OFFLINE")
                 .replace("%player%", args[0])
-                : config.getConfiguration().getString("FIND.MESSAGE")
+                : Oxygen.getInstance().getLangConfiguration().getString("FIND_COMMAND.MESSAGE")
                 .replace("%player%", target.getName())
                 .replace("%server%", target.getServer().getInfo().getName());
 
-        message = message.replace("%theme_primary%", Theme.getPrimaryColor())
-                .replace("%theme_secondary%", Theme.getSecondaryColor());
+        message = message.replace("%primary%", Theme.getPrimaryColor())
+                .replace("%secondary%", Theme.getSecondaryColor())
+                .replace("%middle%", Theme.getMiddleColor());
 
         sender.sendMessage(CC.translate(message));
     }

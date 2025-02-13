@@ -31,10 +31,13 @@
 
 ### Images
 MOTD (Maintenance: OFF)  
-![image](https://github.com/user-attachments/assets/97c5634d-deef-4462-b876-a35789951f87)
+![Screenshot_1](https://github.com/user-attachments/assets/d03f0c0c-e9b5-451f-bbf0-a4dacb72c01f)
 
 MOTD: (Maintenance ON)  
-![image](https://github.com/user-attachments/assets/e082cdcd-8d42-420c-ba32-a063a52179b5)
+![Screenshot_2](https://github.com/user-attachments/assets/cf6324ad-3c38-407b-b998-bcb794dbde56)
 
 MOTD: (Maintenance Message)  
 ![image](https://github.com/user-attachments/assets/ad65ac74-e888-4808-a74d-b31473e42f1c)
+
+Help Command:
+![Screenshot_3](https://github.com/user-attachments/assets/83d726dc-3c30-41d3-b111-680930065a85)

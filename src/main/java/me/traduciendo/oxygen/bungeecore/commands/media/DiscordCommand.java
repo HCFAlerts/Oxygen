@@ -46,6 +46,7 @@ public class DiscordCommand extends Command {
                         msg.replace("%primary%", Theme.getPrimaryColor())
                                 .replace("%secondary%", Theme.getSecondaryColor())
                                 .replace("%middle%",  Theme.getMiddleColor())
+                                .replace("%discord%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.DISCORD"))
                 ))
                 .forEach(sender::sendMessage);
     }

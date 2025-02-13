@@ -43,6 +43,7 @@ public class TeamSpeakCommand extends Command {
                         msg.replace("%primary%", Theme.getPrimaryColor())
                                 .replace("%secondary%", Theme.getSecondaryColor())
                                 .replace("%middle%",  Theme.getMiddleColor())
+                                .replace("%teamspeak%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.TEAMSPEAK"))
                 ))
                 .forEach(sender::sendMessage);
     }

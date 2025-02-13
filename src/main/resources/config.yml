@@ -1,6 +1,6 @@
 #=============================================#
 #                                             #
-#               Oxygen | v1.5                 #
+#               Oxygen | v1.6                 #
 #            LiteClubDevelopment              #
 #                                             #
 #=============================================#
@@ -16,10 +16,10 @@ GENERAL:
 TIME:
   DATE: "11/02/24 17:00:00" # Format is "MM/dd/yy HH:mm:ss", hour format in 24h clock
   TIMEZONE: "EST" # GMT, UTC-3, etc
-MOTD: "&b&lServerName &7┃ &3&l50% OFF &f@ &3&lbuy.myserver.net &c❤ %newline% &7» &a&lHCF SOTW &ftakes place in &b&l&n%time%" # Placeholders: %newline%, %time%
+MOTD: "%primary%&l%servername% &7┃ %secondary%&l50% OFF %middle%@ %secondary%%store% &c❤ %newline% &7» &a&lHCF SOTW %middle%takes place in %primary%&l&n%time%"
 END:
-  TEXT: "&b&l&nRIGHT NOW!!"
-  COMMAND: "" # Example: whitelist off
+  TEXT: "%primary%&l&nRIGHT NOW!!"
+  COMMAND: "" # Example: maintenance off
 TIMER:
   DAYS: "d" # 2d (days)
   DAY: "d" # 1d (day)
@@ -30,9 +30,16 @@ TIMER:
   SECONDS: "s" # 2s (seconds)
   SECOND: "s" # 1s (second)
 SLOTS: 3500 # Max Slots
-CLOCK-TYPE: 1 # 1 for custom or 2 for d:h:m:s clock
+CLOCK-TYPE: 1 # 1 = 1d, 2h, 3m, 4s - 2 = 01d, 02h, 03m, 04s
 
 # Messages
+SOCIAL:
+  SERVER_NAME: "ServerName"
+  DISCORD: "discord.servername.net"
+  STORE: "store.servername.net"
+  TEAMSPEAK: "ts.servername.net"
+  TWITTER: "@ServerNameNET"
+  WEBSITE: "www.servername.net"
 KICK:
   ENABLED: true
   MESSAGE:
@@ -49,17 +56,23 @@ MAINTENANCE:
     - "bwhitelist"
     - "maintenancemode"
   HUB-NAME: "Hub-01"
+  PING-TEXT-ENABLED: true
   PING-TEXT: "&4Whitelisted"
   PING-LORE-ENABLED: true
   PING-LORE:
-    - "&cThis server is under maintenance."
-    - "&cJoin our Discord: &9discord.servername.net"
+    - "&7&m-----------------------------&r"
+    - "&c%servername% is under maintenance."
+    - ""
+    - "&cOnline: &f%online%&7/&f%maxonline%"
+    - ""
+    - "&cJoin our Discord: &9%discord%"
+    - "&7&m-----------------------------"
   KICK-MESSAGE:
     - ""
     - "&cThe network is currently in maintenance."
     - "&cAdditional info may be found at our discord!"
     - ""
-    - "&cJoin our Discord&7: &9discord.servername.net"
+    - "&cJoin our Discord&7: &9%discord%"
     - ""
   PLAYERS: []
 
@@ -68,10 +81,12 @@ NO-MAINTENANCE-PING-TEXT: "0/3500"
 
 NO-MAINTENANCE-PING-LORE-ENABLED: true
 NO-MAINTENANCE-PING-LORE:
-  - "&7&m-----------------------------"
-  - "&b&lServerName &f&lNetwork &7(%online%/3,500)"
+  - "&7&m-----------------------------&r"
+  - "&b&l%servername% &f&lNetwork &7(%online%/%maxonline%)"
   - ""
-  - "&bJoin our Discord&7: &f&odiscord.servername.net"
+  - "&a&lHCF SOTW&7: &f%time%"
+  - ""
+  - "&bJoin our Discord&7: &f&o%discord%"
   - "&7&m-----------------------------"
 
 # Commands

@@ -26,13 +26,15 @@ SERVER_COMMAND:
 HELP_COMMAND:
   MESSAGE:
     - "&7&m----------------------------------------"
-    - "%primary%&lServerName Network &7(%online%/%maxonline%)"
+    - "%primary%&l%servername% Network &7(%online%/%maxonline%)"
     - ""
-    - "%secondary%┃ %primary%Teamspeak&7: %middle%&ots.servername.net"
-    - "%secondary%┃ %primary%Twitter&7: %middle%&o@ServerNameNET"
-    - "%secondary%┃ %primary%Store&7: %middle%&ostore.servername.net"
-    - "%secondary%┃ %primary%Website&7: %middle%&owww.servername.net"
-    - "%secondary%┃ %primary%Discord&7: %middle%&odiscord.servername.net"
+    - "&a&lHCF SOTW&7: &f%time%"
+    - ""
+    - "%secondary%┃ %primary%Teamspeak&7: %middle%&o%teamspeak%"
+    - "%secondary%┃ %primary%Twitter&7: %middle%&o%twitter%"
+    - "%secondary%┃ %primary%Store&7: %middle%&o%store%"
+    - "%secondary%┃ %primary%Website&7: %middle%&o%website%"
+    - "%secondary%┃ %primary%Discord&7: %middle%&o%discord%"
     - ""
     - "&4⚠ &cFor instant assistance join our teamspeak!"
     - "&7&m----------------------------------------"
@@ -41,25 +43,25 @@ SOCIAL:
   DISCORD:
     MESSAGE:
       - "&7&m-----------------------------"
-      - "%primary%Discord&7: %middle%&odiscord.servername.net"
+      - "%primary%Discord&7: %middle%&o%discord%"
       - "&7&m-----------------------------"
   TEAMSPEAK:
     MESSAGE:
       - "&7&m-----------------------------"
-      - "%primary%Teamspeak&7: %middle%&ots.servername.net"
+      - "%primary%Teamspeak&7: %middle%&o%teamspeak%"
       - "&7&m-----------------------------"
   STORE:
     MESSAGE:
       - "&7&m-----------------------------"
-      - "%primary%Store&7: %middle%&ostore.servername.net"
+      - "%primary%Store&7: %middle%&o%store%"
       - "&7&m-----------------------------"
   WEBSITE:
     MESSAGE:
       - "&7&m-----------------------------"
-      - "%primary%Website&7: %middle%&owww.servername.net"
+      - "%primary%Website&7: %middle%&o%website%"
       - "&7&m-----------------------------"
   TWITTER:
     MESSAGE:
       - "&7&m-----------------------------"
-      - "%primary%Twitter&7: %middle%&o@ServerNameNET"
+      - "%primary%Twitter&7: %middle%&o%twitter%"
       - "&7&m-----------------------------"

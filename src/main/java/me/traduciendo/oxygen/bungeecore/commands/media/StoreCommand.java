@@ -43,6 +43,7 @@ public class StoreCommand extends Command {
                         msg.replace("%primary%", Theme.getPrimaryColor())
                                 .replace("%secondary%", Theme.getSecondaryColor())
                                 .replace("%middle%", Theme.getMiddleColor())
+                                .replace("%store%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.STORE"))
                 ))
                 .forEach(sender::sendMessage);
     }

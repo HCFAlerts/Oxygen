@@ -189,7 +189,16 @@ public class Oxygen extends Plugin implements Listener {
         ServerPing sp = e.getResponse();
         String message = this.config.getString("MOTD")
                 .replaceAll("%time%", getTime())
-                .replaceAll("%newline%", "\n");
+                .replaceAll("%newline%", "\n")
+                .replaceAll("%primary%", Theme.getPrimaryColor())
+                .replaceAll("%secondary%", Theme.getSecondaryColor())
+                .replaceAll("%middle%", Theme.getMiddleColor())
+                .replaceAll("%discord%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.DISCORD"))
+                .replaceAll("%store%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.STORE"))
+                .replaceAll("%teamspeak%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.TEAMSPEAK"))
+                .replaceAll("%twitter%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.TWITTER"))
+                .replaceAll("%website%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.WEBSITE"))
+                .replaceAll("%servername%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.SERVER_NAME"));
         sp.getPlayers().setMax(this.config.getInt("SLOTS"));
         sp.setDescription(ChatColor.translateAlternateColorCodes('&', message));
         e.setResponse(sp);
@@ -212,7 +221,10 @@ public class Oxygen extends Plugin implements Listener {
         long diff = date.getTime() - current.getTime();
 
         if (diff < 0L) {
-            return config.getString("END.TEXT");
+            return config.getString("END.TEXT")
+                    .replace("%primary%", Theme.getPrimaryColor())
+                    .replace("%middle%", Theme.getMiddleColor())
+                    .replace("%secondary%", Theme.getSecondaryColor());
         } else {
             long days = TimeUnit.MILLISECONDS.toDays(diff);
             long hours = TimeUnit.MILLISECONDS.toHours(diff) % 24;

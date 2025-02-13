@@ -42,6 +42,7 @@ public class WebsiteCommand extends Command {
                         msg.replace("%primary%", Theme.getPrimaryColor())
                                 .replace("%secondary%", Theme.getSecondaryColor())
                                 .replace("%middle%",  Theme.getMiddleColor())
+                                .replace("%website%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.WEBSITE"))
                 ))
                 .forEach(sender::sendMessage);
     }

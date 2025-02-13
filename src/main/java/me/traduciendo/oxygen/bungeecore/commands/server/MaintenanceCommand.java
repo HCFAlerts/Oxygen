@@ -51,14 +51,14 @@ public class MaintenanceCommand extends Command {
 
         if (args[0].equalsIgnoreCase("list")) {
             sender.sendMessage("");
-            sender.sendMessage(CC.translate("&aPeople whitelisted:"));
+            sender.sendMessage(CC.translate("&aPlayers in Whitelist:"));
             String error = null;
             for (String uuid : Oxygen.getInstance().getBungeeHandler().getWhitelists()) {
                 try {
                     sender.sendMessage(CC.translate(" &a- &f" + MojangUtils.fetchName(UUID.fromString(uuid))));
                 }
                 catch (Exception e) {
-                    error = CC.translate("&cSomething went wrong while loading the whitelist.");
+                    error = CC.translate("&cError while loading the whitelist.");
                 }
             }
             if (error != null) {

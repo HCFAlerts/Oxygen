@@ -39,26 +39,37 @@ public class BungeeListener implements Listener {
         String maxOnlinePlayers = String.valueOf(config.getConfiguration().getInt("SLOTS"));
 
         if (config.getConfiguration().getBoolean("MAINTENANCE.ENABLED")) {
-            response.setVersion(new ServerPing.Protocol(
-                    CC.translate(Oxygen.getInstance().getConfigYML().getConfiguration().getString("MAINTENANCE.PING-TEXT")),
-                    9999
-            ));
+            if (config.getConfiguration().getBoolean("MAINTENANCE.PING-TEXT-ENABLED")) {
+                response.setVersion(new ServerPing.Protocol(
+                        CC.translate(Oxygen.getInstance().getConfigYML().getConfiguration().getString("MAINTENANCE.PING-TEXT")),
+                        9999
+                ));
+            }
 
-            if (config.getConfiguration().getBoolean("PING-LORE-ENABLED")) {
-                List<String> hoverText = config.getConfiguration().getStringList("MAINTENANCE.PING-LORE")
-                        .stream()
-                        .map(line -> line
-                                .replace("%online%", onlinePlayers)
-                                .replace("%maxonline%", maxOnlinePlayers)
-                        )
-                        .map(CC::translate)
-                        .collect(Collectors.toList());
+            if (config.getConfiguration().getBoolean("MAINTENANCE.ENABLED")) {
+                if (config.getConfiguration().getBoolean("MAINTENANCE.PING-LORE-ENABLED")) {
+                    List<String> hoverText = config.getConfiguration().getStringList("MAINTENANCE.PING-LORE")
+                            .stream()
+                            .map(line -> line
+                                    .replace("%time%", Oxygen.getInstance().getTime())
+                                    .replace("%servername%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.SERVER_NAME"))
+                                    .replace("%discord%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.DISCORD"))
+                                    .replace("%store%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.STORE"))
+                                    .replace("%teamspeak%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.TEAMSPEAK"))
+                                    .replace("%twitter%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.TWITTER"))
+                                    .replace("%website%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.WEBSITE"))
+                                    .replace("%online%", onlinePlayers)
+                                    .replace("%maxonline%", maxOnlinePlayers)
+                            )
+                            .map(CC::translate)
+                            .collect(Collectors.toList());
 
-                response.setPlayers(new ServerPing.Players(Integer.parseInt(maxOnlinePlayers), ProxyServer.getInstance().getOnlineCount(), new ServerPing.PlayerInfo[0]));
-                response.getPlayers().setSample(hoverText.stream()
-                        .map(text -> new ServerPing.PlayerInfo(text, UUID.randomUUID()))
-                        .toArray(ServerPing.PlayerInfo[]::new)
-                );
+                        response.setPlayers(new ServerPing.Players(Integer.parseInt(maxOnlinePlayers), ProxyServer.getInstance().getOnlineCount(), new ServerPing.PlayerInfo[0]));
+                        response.getPlayers().setSample(hoverText.stream()
+                                .map(text -> new ServerPing.PlayerInfo(text, UUID.randomUUID()))
+                                .toArray(ServerPing.PlayerInfo[]::new)
+                        );
+                }
             }
         } else {
             if (config.getConfiguration().getBoolean("NO-MAINTENANCE-PING-TEXT-ENABLED")) {
@@ -72,6 +83,13 @@ public class BungeeListener implements Listener {
                 List<String> hoverText = config.getConfiguration().getStringList("NO-MAINTENANCE-PING-LORE")
                         .stream()
                         .map(line -> line
+                                .replace("%time%", Oxygen.getInstance().getTime())
+                                .replace("%servername%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.SERVER_NAME"))
+                                .replace("%discord%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.DISCORD"))
+                                .replace("%store%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.STORE"))
+                                .replace("%teamspeak%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.TEAMSPEAK"))
+                                .replace("%twitter%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.TWITTER"))
+                                .replace("%website%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.WEBSITE"))
                                 .replace("%online%", onlinePlayers)
                                 .replace("%maxonline%", maxOnlinePlayers)
                         )
@@ -120,9 +138,15 @@ public class BungeeListener implements Listener {
         CreatorYML config = Oxygen.getInstance().getConfigYML();
         if (config.getConfiguration().getBoolean("MAINTENANCE.ENABLED") && !Oxygen.getInstance().getBungeeHandler().isWhitelisted(event.getConnection().getUniqueId().toString())) {
             event.setCancelled(true);
-            event.setCancelReason(config.getConfiguration().getStringList("MAINTENANCE.KICK-MESSAGE")
+            event.setCancelReason(CC.translate(config.getConfiguration().getStringList("MAINTENANCE.KICK-MESSAGE"))
                     .stream()
-                    .map(CC::translate)
+                    .map(line -> line
+                    .replace("%servername%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.SERVER_NAME"))
+                    .replace("%discord%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.DISCORD"))
+                    .replace("%store%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.STORE"))
+                    .replace("%teamspeak%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.TEAMSPEAK"))
+                    .replace("%twitter%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.TWITTER"))
+                    .replace("%website%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.WEBSITE")))
                     .collect(Collectors.joining("\n")));
         }
     }

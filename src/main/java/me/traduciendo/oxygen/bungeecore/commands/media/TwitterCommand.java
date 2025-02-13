@@ -43,6 +43,7 @@ public class TwitterCommand extends Command {
                         msg.replace("%primary%", Theme.getPrimaryColor())
                                 .replace("%secondary%", Theme.getSecondaryColor())
                                 .replace("%middle%",  Theme.getMiddleColor())
+                                .replace("%twitter%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.TWITTER"))
                 ))
                 .forEach(sender::sendMessage);
     }

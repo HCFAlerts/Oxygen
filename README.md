@@ -39,5 +39,5 @@ MOTD: (Maintenance ON)
 MOTD: (Maintenance Message)  
 ![image](https://github.com/user-attachments/assets/ad65ac74-e888-4808-a74d-b31473e42f1c)
 
-Help Command:
+Help Command:  
 ![Screenshot_3](https://github.com/user-attachments/assets/83d726dc-3c30-41d3-b111-680930065a85)

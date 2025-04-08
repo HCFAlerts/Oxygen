@@ -8,8 +8,14 @@ import lombok.Setter;
 import me.traduciendo.oxygen.bungeecore.handlers.BungeeHandler;
 import me.traduciendo.oxygen.bungeecore.listeners.BungeeListener;
 import me.traduciendo.oxygen.utils.CreatorYML;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.ServerPing;
 import net.md_5.bungee.api.event.ProxyPingEvent;
 import net.md_5.bungee.api.plugin.Listener;
@@ -44,11 +50,14 @@ public class Oxygen extends Plugin implements Listener {
     private static Oxygen instance;
     private BungeeHandler bungeeHandler;
     private ScheduledTask scheduledTask;
-    private CreatorYML configYML;
-    private CreatorYML langYML;
-    private Configuration config;
-    private Configuration langConfig;
+    private JDA discordBot;
+    private CreatorYML configYML, langYML, commandsYML, playersYML;
+    private Configuration config, langConfig, commandsConfig, playersConfig;
     private ScheduledTask countdown;
+
+    public void log(String s) {
+        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(s));
+    }
 
     public void onEnable() {
         instance = this;
@@ -56,23 +65,114 @@ public class Oxygen extends Plugin implements Listener {
         this.handlers();
         this.listeners();
         this.loadConfig();
-        this.loadLangConfig();
         Theme.loadColors();
         this.commands();
         this.getProxy().getPluginManager().registerListener(this, this);
-        this.getProxy().getPluginManager().registerCommand(this, new OxygenCommand(this));
 
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(Theme.getSecondaryColor() + "&m=============================="));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(Theme.getPrimaryColor() + "Oxygen Core &8- &fv" + getDescription().getVersion()));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(""));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(Theme.getSecondaryColor() + "┃ " + Theme.getPrimaryColor() + "Author&f: Traduciendo"));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(Theme.getSecondaryColor() + "┃ " + Theme.getPrimaryColor() + "State&f: &aEnabled"));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(""));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&7&oThank you for using Oxygen Bungee Core"));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&7&oJoin our Discord dsc.gg/liteclubdevelopment"));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(Theme.getSecondaryColor() + "&m=============================="));
+        log(Theme.getSecondaryColor() + "&m==============================");
+        log(Theme.getPrimaryColor() + "Oxygen Core &8- &fv" + getDescription().getVersion());
+        log("");
+        log(Theme.getSecondaryColor() + "┃ " + Theme.getPrimaryColor() + "Author&f: Traduciendo");
+        log(Theme.getSecondaryColor() + "┃ " + Theme.getPrimaryColor() + "State&f: &aEnabled");
+        log("");
+        log("&7&oThank you for using Oxygen Bungee Core");
+        log("&7&oJoin our Discord dsc.gg/liteclubdevelopment");
+        log(Theme.getSecondaryColor() + "&m==============================");
 
         this.startCountdown();
+
+        String onlinePlayers = String.valueOf(ProxyServer.getInstance().getOnlineCount());
+        String maxOnlinePlayers = String.valueOf(getConfigYML().getConfiguration().getInt("SLOTS"));
+        String discordToken = getInstance().getConfig().getString("DISCORD-BOT.TOKEN");
+        String activityType = getInstance().getConfig().getString("DISCORD-BOT.ACTIVITY.TYPE").toUpperCase();
+        String activityText = getInstance().getConfig().getString("DISCORD-BOT.ACTIVITY.ACTIVITY")
+                .replace("%online%", onlinePlayers)
+                .replace("%maxonline%", maxOnlinePlayers)
+                .replace("%time%", getTime())
+                .replace("%servername%", getConfiguration().getString("SOCIAL.SERVER_NAME"))
+                .replace("%discord%", getConfiguration().getString("SOCIAL.DISCORD"))
+                .replace("%store%", getConfiguration().getString("SOCIAL.STORE"))
+                .replace("%teamspeak%", getConfiguration().getString("SOCIAL.TEAMSPEAK"))
+                .replace("%twitter%", getConfiguration().getString("SOCIAL.TWITTER"))
+                .replace("%website%", getConfiguration().getString("SOCIAL.WEBSITE"))
+                .replace("&", "");
+        String streamUrl = getInstance().getConfig().getString("DISCORD-BOT.ACTIVITY.STREAM_URL", "https://twitch.tv/liteclubdevelopment");
+        OnlineStatus status = OnlineStatus.valueOf(getInstance().getConfig().getString("DISCORD-BOT.ACTIVITY.STATUS").toUpperCase());
+
+        Activity activity;
+        switch (activityType) {
+            case "PLAYING":
+                activity = Activity.playing(activityText);
+                break;
+            case "WATCHING":
+                activity = Activity.watching(activityText);
+                break;
+            case "LISTENING":
+                activity = Activity.listening(activityText);
+                break;
+            case "STREAMING":
+                activity = Activity.streaming(activityText, streamUrl);
+                break;
+            case "COMPETING":
+                activity = Activity.competing(activityText);
+                break;
+            default:
+                activity = Activity.playing(activityText);
+                break;
+        }
+
+        if (getInstance().getConfig().getBoolean("DISCORD-BOT.ENABLED")) {
+            if (getInstance().getConfig().getString("DISCORD-BOT.TOKEN").isEmpty()) {
+                log("&4&m===============&c&l[ERROR]&4&m===============");
+                log("             &c&lOxygen Core&r");
+                log("");
+                log("&cDiscord Bot Module - Invalid Token");
+                log("");
+                log(" &4┃ &cPut the Bot Token in config.yml");
+                log(" &4┃ &cDisabling Discord Bot Module...");
+                log("");
+                log("&c&oJoin our Discord dsc.gg/liteclubdevelopment");
+                log("&4&m===============&c&l[ERROR]&4&m===============");
+                return;
+            } else if (getInstance().getConfig().getString("DISCORD-BOT.TOKEN").equals("INSERT-YOUR-DISCORD-BOT-TOKEN-HERE")) {
+                log("&4&m===============&c&l[ERROR]&4&m===============");
+                log("             &c&lOxygen Core&r");
+                log("");
+                log("&cDiscord Bot Module - Token not defined");
+                log("");
+                log(" &4┃ &cTo use this feature you need");
+                log(" &4┃ &cPut the Bot Token in config.yml");
+                log("  &4┃ &cDisabling Discord Bot Module...");
+                log("");
+                log("&c&oJoin our Discord dsc.gg/liteclubdevelopment");
+                log("&4&m===============&c&l[ERROR]&4&m===============");
+                return;
+            }
+
+            this.discordBot = JDABuilder.createDefault(discordToken)
+                    .setStatus(status)
+                    .setActivity(activity)
+                    .enableIntents(GatewayIntent.GUILD_MEMBERS, new GatewayIntent[0])
+                    .build();
+
+            int updateInterval = getConfig().getInt("DISCORD-BOT.UPDATE_INTERVAL", 10);
+
+            this.getProxy().getScheduler().schedule(this, () -> {
+                String updatedActivityText = activityText
+                        .replace("%online%", onlinePlayers)
+                        .replace("%maxonline%", maxOnlinePlayers)
+                        .replace("%time%", getTime())
+                        .replace("%servername%", getConfiguration().getString("SOCIAL.SERVER_NAME"))
+                        .replace("%discord%", getConfiguration().getString("SOCIAL.DISCORD"))
+                        .replace("%store%", getConfiguration().getString("SOCIAL.STORE"))
+                        .replace("%teamspeak%", getConfiguration().getString("SOCIAL.TEAMSPEAK"))
+                        .replace("%twitter%", getConfiguration().getString("SOCIAL.TWITTER"))
+                        .replace("%website%", getConfiguration().getString("SOCIAL.WEBSITE"))
+                        .replace("&", "");
+                Activity updatedActivity = Activity.playing(updatedActivityText);
+                discordBot.getPresence().setActivity(updatedActivity);
+            }, 0, updateInterval, TimeUnit.SECONDS);
+        }
     }
 
     protected Configuration getConfig() {
@@ -91,11 +191,21 @@ public class Oxygen extends Plugin implements Listener {
         return this.langConfig;
     }
 
+    protected Configuration getCommandsConfig() {
+        return this.commandsConfig;
+    }
+
+    public Configuration getCommandsConfiguration() {
+        return this.commandsConfig;
+    }
+
+    protected Configuration getPlayersConfig() {
+        return this.playersConfig;
+    }
+
     public void reloadConfig() {
         this.loadConfig();
         this.saveConfig();
-        this.loadLangConfig();
-        this.saveLangConfig();
     }
 
     protected void saveConfig() {
@@ -104,11 +214,18 @@ public class Oxygen extends Plugin implements Listener {
         } catch (IOException e) {
             throw new RuntimeException("Unable to save main configuration", e);
         }
-    }
-
-    protected void saveLangConfig() {
         try {
             ConfigurationProvider.getProvider(YamlConfiguration.class).save(this.getLangConfig(), new File(this.getDataFolder(), "lang.yml"));
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to save lang configuration", e);
+        }
+        try {
+            ConfigurationProvider.getProvider(YamlConfiguration.class).save(this.getCommandsConfig(), new File(this.getDataFolder(), "commands.yml"));
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to save lang configuration", e);
+        }
+        try {
+            ConfigurationProvider.getProvider(YamlConfiguration.class).save(this.getPlayersConfig(), new File(this.getDataFolder(), "whitelisted-players.yml"));
         } catch (IOException e) {
             throw new RuntimeException("Unable to save lang configuration", e);
         }
@@ -131,10 +248,8 @@ public class Oxygen extends Plugin implements Listener {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
 
-    private void loadLangConfig() {
-        File file = new File(this.getDataFolder(), "lang.yml");
+        file = new File(this.getDataFolder(), "lang.yml");
         if (!file.exists()) {
             if (!this.getDataFolder().exists()) {
                 this.getDataFolder().mkdir();
@@ -150,11 +265,47 @@ public class Oxygen extends Plugin implements Listener {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        file = new File(this.getDataFolder(), "commands.yml");
+        if (!file.exists()) {
+            if (!this.getDataFolder().exists()) {
+                this.getDataFolder().mkdir();
+            }
+            try (InputStream in = this.getResourceAsStream("commands.yml")) {
+                Files.copy(in, file.toPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            this.commandsConfig = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        file = new File(this.getDataFolder(), "whitelisted-players.yml");
+        if (!file.exists()) {
+            if (!this.getDataFolder().exists()) {
+                this.getDataFolder().mkdir();
+            }
+            try (InputStream in = this.getResourceAsStream("whitelisted-players.yml")) {
+                Files.copy(in, file.toPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            this.playersConfig = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void files() {
         this.configYML = new CreatorYML(this, "config.yml");
         this.langYML = new CreatorYML(this, "lang.yml");
+        this.commandsYML = new CreatorYML(this, "commands.yml");
+        this.playersYML = new CreatorYML(this, "whitelisted-players.yml");
     }
 
     private void handlers() {
@@ -166,6 +317,7 @@ public class Oxygen extends Plugin implements Listener {
     }
 
     private void commands() {
+        this.getProxy().getPluginManager().registerCommand(this, new OxygenCommand());
         this.getProxy().getPluginManager().registerCommand(this, new HubCommand());
         this.getProxy().getPluginManager().registerCommand(this, new MaintenanceCommand());
         this.getProxy().getPluginManager().registerCommand(this, new FindCommand());
@@ -233,24 +385,24 @@ public class Oxygen extends Plugin implements Listener {
 
             StringBuilder sb = new StringBuilder();
 
-            if (days > 0) {
-                sb.append(days).append(config.getString(days == 1 ? "TIMER.DAY" : "TIMER.DAYS"));
-            }
+                if (days > 0) {
+                    sb.append(days).append(config.getString(days == 1 ? "TIMER.DAY" : "TIMER.DAYS"));
+                }
 
-            if (hours > 0) {
-                if (sb.length() > 0) sb.append(" ");
-                sb.append(hours).append(config.getString(hours == 1 ? "TIMER.HOUR" : "TIMER.HOURS"));
-            }
+                if (hours > 0) {
+                    if (sb.length() > 0) sb.append(" ");
+                    sb.append(hours).append(config.getString(hours == 1 ? "TIMER.HOUR" : "TIMER.HOURS"));
+                }
 
-            if (minutes > 0) {
-                if (sb.length() > 0) sb.append(" ");
-                sb.append(minutes).append(config.getString(minutes == 1 ? "TIMER.MINUTE" : "TIMER.MINUTES"));
-            }
+                if (minutes > 0) {
+                    if (sb.length() > 0) sb.append(" ");
+                    sb.append(minutes).append(config.getString(minutes == 1 ? "TIMER.MINUTE" : "TIMER.MINUTES"));
+                }
 
-            if (seconds > 0) {
-                if (sb.length() > 0) sb.append(" ");
-                sb.append(seconds).append(config.getString(seconds == 1 ? "TIMER.SECOND" : "TIMER.SECONDS"));
-            }
+                if (seconds > 0) {
+                    if (sb.length() > 0) sb.append(" ");
+                    sb.append(seconds).append(config.getString(seconds == 1 ? "TIMER.SECOND" : "TIMER.SECONDS"));
+                }
 
             return sb.toString();
         }
@@ -281,16 +433,16 @@ public class Oxygen extends Plugin implements Listener {
     }
 
     public void onDisable() {
-        configYML.getConfiguration().set("WHITELIST.PLAYERS", this.bungeeHandler.getWhitelists());
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(Theme.getSecondaryColor() + "&m=============================="));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(Theme.getPrimaryColor() + "Oxygen Core &8- &fv" + getDescription().getVersion()));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(""));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(Theme.getSecondaryColor() + "┃ " + Theme.getPrimaryColor() + "Author&f: Traduciendo"));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(Theme.getSecondaryColor() + "┃ " + Theme.getPrimaryColor() + "State&f: &cDisabled"));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(""));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&7&oThank you for using Oxygen Bungee Core"));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate("&7&oJoin our Discord dsc.gg/liteclubdevelopment"));
-        BungeeCord.getInstance().getConsole().sendMessage(CC.translate(Theme.getSecondaryColor() + "&m=============================="));
+        getPlayersYML().getConfiguration().set("PLAYERS", this.bungeeHandler.getWhitelists());
+        log(Theme.getSecondaryColor() + "&m==============================");
+        log(Theme.getPrimaryColor() + "Oxygen Core &8- &fv" + getDescription().getVersion());
+        log("");
+        log(Theme.getSecondaryColor() + "┃ " + Theme.getPrimaryColor() + "Author&f: Traduciendo");
+        log(Theme.getSecondaryColor() + "┃ " + Theme.getPrimaryColor() + "State&f: &cDisabled");
+        log("");
+        log("&7&oThank you for using Oxygen Bungee Core");
+        log("&7&oJoin our Discord dsc.gg/liteclubdevelopment");
+        log(Theme.getSecondaryColor() + "&m==============================");
         this.reloadConfig();
     }
 }

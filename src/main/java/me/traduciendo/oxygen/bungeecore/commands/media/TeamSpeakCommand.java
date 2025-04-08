@@ -22,8 +22,8 @@ public class TeamSpeakCommand extends Command {
     public TeamSpeakCommand() {
         super(
                 "teamspeak",
-                Oxygen.getInstance().getConfiguration().getString("TEAMSPEAK.PERMISSION", ""),
-                Oxygen.getInstance().getConfiguration().getStringList("TEAMSPEAK.ALIASES").toArray(new String[0])
+                Oxygen.getInstance().getCommandsConfiguration().getString("TEAMSPEAK.PERMISSION", ""),
+                Oxygen.getInstance().getCommandsConfiguration().getStringList("TEAMSPEAK.ALIASES").toArray(new String[0])
         );
     }
 
@@ -33,7 +33,7 @@ public class TeamSpeakCommand extends Command {
             return;
         }
 
-        if (!config.getConfiguration().getBoolean("TEAMSPEAK.ENABLED", true)) {
+        if (!Oxygen.getInstance().getCommandsYML().getConfiguration().getBoolean("TEAMSPEAK.ENABLED", true)) {
             sender.sendMessage(CC.translate(config.getConfiguration().getString("GENERAL.DISABLED_COMMAND")));
             return;
         }

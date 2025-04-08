@@ -17,21 +17,18 @@ import net.md_5.bungee.api.plugin.Command;
  */
 
 public class ServerCommand extends Command {
-
-    private final CreatorYML config = Oxygen.getInstance().getConfigYML();
-
     public ServerCommand() {
         super(
                 "server",
-                Oxygen.getInstance().getConfiguration().getString("SERVER.PERMISSION", "oxygen.command.server"),
-                Oxygen.getInstance().getConfiguration().getStringList("SERVER.ALIASES").toArray(new String[0])
+                Oxygen.getInstance().getCommandsConfiguration().getString("SERVER.PERMISSION", "oxygen.command.server"),
+                Oxygen.getInstance().getCommandsConfiguration().getStringList("SERVER.ALIASES").toArray(new String[0])
         );
     }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if (!config.getConfiguration().getBoolean("SERVER.ENABLED", true)) {
-            sender.sendMessage(CC.translate(config.getConfiguration().getString("GENERAL.DISABLED_COMMAND")));
+        if (!Oxygen.getInstance().getCommandsYML().getConfiguration().getBoolean("SERVER.ENABLED", true)) {
+            sender.sendMessage(CC.translate(Oxygen.getInstance().getConfigYML().getConfiguration().getString("GENERAL.DISABLED_COMMAND")));
             return;
         }
 

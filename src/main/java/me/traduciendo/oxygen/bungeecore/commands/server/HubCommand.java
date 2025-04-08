@@ -17,21 +17,18 @@ import net.md_5.bungee.api.plugin.Command;
  * or github.com/HCFAlerts --> github.com/liteclubdevelopment
  */
 public class HubCommand extends Command {
-
-    private final CreatorYML config = Oxygen.getInstance().getConfigYML();
-
     public HubCommand() {
         super(
                 "hub",
-                Oxygen.getInstance().getConfiguration().getString("HUB.PERMISSION", ""),
-                Oxygen.getInstance().getConfiguration().getStringList("HUB.ALIASES").toArray(new String[0])
+                Oxygen.getInstance().getCommandsConfiguration().getString("HUB.PERMISSION", ""),
+                Oxygen.getInstance().getCommandsConfiguration().getStringList("HUB.ALIASES").toArray(new String[0])
         );
     }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if (!config.getConfiguration().getBoolean("HUB.ENABLED", true)) {
-            sender.sendMessage(CC.translate(config.getConfiguration().getString("GENERAL.DISABLED_COMMAND")));
+        if (!Oxygen.getInstance().getCommandsYML().getConfiguration().getBoolean("HUB.ENABLED", true)) {
+            sender.sendMessage(CC.translate(Oxygen.getInstance().getConfigYML().getConfiguration().getString("GENERAL.DISABLED_COMMAND")));
             return;
         }
 

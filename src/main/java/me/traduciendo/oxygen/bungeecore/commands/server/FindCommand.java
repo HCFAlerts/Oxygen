@@ -17,21 +17,18 @@ import net.md_5.bungee.api.plugin.Command;
  */
 
 public class FindCommand extends Command {
-
-    private final CreatorYML config = Oxygen.getInstance().getConfigYML();
-
     public FindCommand() {
         super(
                 "find",
-                Oxygen.getInstance().getConfiguration().getString("FIND.PERMISSION", "oxygen.command.find"),
-                Oxygen.getInstance().getConfiguration().getStringList("FIND.ALIASES").toArray(new String[0])
+                Oxygen.getInstance().getCommandsConfiguration().getString("FIND.PERMISSION", "oxygen.command.find"),
+                Oxygen.getInstance().getCommandsConfiguration().getStringList("FIND.ALIASES").toArray(new String[0])
         );
     }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if (!config.getConfiguration().getBoolean("FIND.ENABLED", true)) {
-            sender.sendMessage(CC.translate(config.getConfiguration().getString("GENERAL.DISABLED_COMMAND")));
+        if (!Oxygen.getInstance().getCommandsYML().getConfiguration().getBoolean("FIND.ENABLED", true)) {
+            sender.sendMessage(CC.translate(Oxygen.getInstance().getConfigYML().getConfiguration().getString("GENERAL.DISABLED_COMMAND")));
             return;
         }
 

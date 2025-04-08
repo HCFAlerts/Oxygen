@@ -2,7 +2,7 @@
 
 
 
-# Oxygen | v1.6
+# Oxygen | v1.7
 * By LiteClubDevelopment, Traduciendo
 * Available for download on [BuiltByBit](https://builtbybit.com/resources/oxygen-modern-bungee-core.54077/) and [GitHub](https://github.com/HCFAlerts/Oxygen/releases)
 ---
@@ -25,7 +25,8 @@
 - Hub Command  
 - Server Command  
 - Maintenance Mode  
-- Kick System (With Auto Hub Detection)  
+- Kick System (With Auto Hub Detection)
+- Discord Bot Module  
 - And big loot of more features...  
 ---
 

@@ -25,8 +25,8 @@ public class DiscordCommand extends Command {
     public DiscordCommand() {
         super(
                 "discord",
-                Oxygen.getInstance().getConfiguration().getString("DISCORD.PERMISSION", ""),
-                Oxygen.getInstance().getConfiguration().getStringList("DISCORD.ALIASES").toArray(new String[0])
+                Oxygen.getInstance().getCommandsConfiguration().getString("DISCORD.PERMISSION", ""),
+                Oxygen.getInstance().getCommandsConfiguration().getStringList("DISCORD.ALIASES").toArray(new String[0])
         );
     }
 
@@ -36,7 +36,7 @@ public class DiscordCommand extends Command {
             return;
         }
 
-        if (!config.getConfiguration().getBoolean("DISCORD.ENABLED", true)) {
+        if (!Oxygen.getInstance().getCommandsYML().getConfiguration().getBoolean("DISCORD.ENABLED", true)) {
             sender.sendMessage(CC.translate(config.getConfiguration().getString("GENERAL.DISABLED_COMMAND")));
             return;
         }

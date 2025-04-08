@@ -22,8 +22,8 @@ public class TwitterCommand extends Command {
     public TwitterCommand() {
         super(
                 "twitter",
-                Oxygen.getInstance().getConfiguration().getString("TWITTER.PERMISSION", ""),
-                Oxygen.getInstance().getConfiguration().getStringList("TWITTER.ALIASES").toArray(new String[0])
+                Oxygen.getInstance().getCommandsConfiguration().getString("TWITTER.PERMISSION", ""),
+                Oxygen.getInstance().getCommandsConfiguration().getStringList("TWITTER.ALIASES").toArray(new String[0])
         );
     }
 
@@ -33,7 +33,7 @@ public class TwitterCommand extends Command {
             return;
         }
 
-        if (!config.getConfiguration().getBoolean("TWITTER.ENABLED", true)) {
+        if (!Oxygen.getInstance().getCommandsYML().getConfiguration().getBoolean("TWITTER.ENABLED", true)) {
             sender.sendMessage(CC.translate(config.getConfiguration().getString("GENERAL.DISABLED_COMMAND")));
             return;
         }

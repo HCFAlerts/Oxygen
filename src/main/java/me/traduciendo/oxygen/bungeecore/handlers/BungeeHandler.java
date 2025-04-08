@@ -17,10 +17,10 @@ import java.util.*;
 public class BungeeHandler {
 
     private final List<String> whitelists;
-    private final CreatorYML config = Oxygen.getInstance().getConfigYML();
+    private final CreatorYML config = Oxygen.getInstance().getPlayersYML();
     
     public BungeeHandler() {
-        this.whitelists = config.getConfiguration().getStringList("MAINTENANCE.PLAYERS");
+        this.whitelists = config.getConfiguration().getStringList("PLAYERS");
     }
     
     public boolean isWhitelisted(String uuid) {
@@ -31,13 +31,13 @@ public class BungeeHandler {
         if (whitelisted) {
             if (!this.isWhitelisted(uuid)) {
                 this.whitelists.add(uuid);
-                config.getConfiguration().set("MAINTENANCE.PLAYERS", this.whitelists);
+                config.getConfiguration().set("PLAYERS", this.whitelists);
                 config.save();
             }
         }
         else if (this.isWhitelisted(uuid)) {
             this.whitelists.remove(uuid);
-            config.getConfiguration().set("MAINTENANCE.PLAYERS", this.whitelists);
+            config.getConfiguration().set("PLAYERS", this.whitelists);
             config.save();
         }
     }

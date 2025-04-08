@@ -22,8 +22,8 @@ public class StoreCommand extends Command {
     public StoreCommand() {
         super(
                 "store",
-                Oxygen.getInstance().getConfiguration().getString("STORE.PERMISSION", ""),
-                Oxygen.getInstance().getConfiguration().getStringList("STORE.ALIASES").toArray(new String[0])
+                Oxygen.getInstance().getCommandsConfiguration().getString("STORE.PERMISSION", ""),
+                Oxygen.getInstance().getCommandsConfiguration().getStringList("STORE.ALIASES").toArray(new String[0])
         );
     }
 
@@ -33,7 +33,7 @@ public class StoreCommand extends Command {
             return;
         }
 
-        if (!config.getConfiguration().getBoolean("STORE.ENABLED", true)) {
+        if (!Oxygen.getInstance().getCommandsYML().getConfiguration().getBoolean("STORE.ENABLED", true)) {
             sender.sendMessage(CC.translate(config.getConfiguration().getString("GENERAL.DISABLED_COMMAND")));
             return;
         }

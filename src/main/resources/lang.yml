@@ -6,7 +6,7 @@ MAINTENANCE:
   COMMAND_USAGE: "&cUsage: /maintenance <on|off|list|add|remove> <name>"
 
 HUB_COMMAND:
-  SENDING: "&aSending you to the &fHub-0%server%&a..."
+  SENDING: "&aSending you to the &f%server%&a..."
   INVALID_HUB_NUMBER: "&cInvalid hub number."
   NO_AVAILABLE_HUBS: "&cNo hubs are available at the moment."
 

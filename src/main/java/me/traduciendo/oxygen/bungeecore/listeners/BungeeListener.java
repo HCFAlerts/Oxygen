@@ -142,6 +142,7 @@ public class BungeeListener implements Listener {
                     .stream()
                     .map(line -> line
                     .replace("%servername%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.SERVER_NAME"))
+                    .replace("%time%", Oxygen.getInstance().getTime())
                     .replace("%discord%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.DISCORD"))
                     .replace("%store%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.STORE"))
                     .replace("%teamspeak%", Oxygen.getInstance().getConfiguration().getString("SOCIAL.TEAMSPEAK"))

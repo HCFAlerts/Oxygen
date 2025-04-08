@@ -1,0 +1,48 @@
+OXYGEN_COMMAND:
+  PERMISSION: "oxygen.admin"
+  ALIASES:
+    - "motd"
+    - "omotd"
+TEAMSPEAK:
+  ENABLED: true
+  PERMISSION: ""
+  ALIASES:
+    - "ts"
+    - "ts3"
+STORE:
+  ENABLED: true
+  PERMISSION: ""
+  ALIASES: []
+DISCORD:
+  ENABLED: true
+  PERMISSION: ""
+  ALIASES:
+    - "dc"
+TWITTER:
+  ENABLED: true
+  PERMISSION: ""
+  ALIASES: []
+WEBSITE:
+  ENABLED: true
+  PERMISSION: ""
+  ALIASES:
+    - "web"
+HELP:
+  ENABLED: true
+  PERMISSION: ""
+  ALIASES: []
+HUB:
+  ENABLED: true
+  PERMISSION: ""
+  ALIASES:
+    - "lobby"
+FIND:
+  ENABLED: true
+  PERMISSION: "oxygen.command.find"
+  ALIASES:
+    - "findplayer"
+SERVER:
+  ENABLED: true
+  PERMISSION: "oxygen.command.server"
+  ALIASES:
+    - "play"

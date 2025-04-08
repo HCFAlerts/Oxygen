@@ -6,7 +6,7 @@
 
     <groupId>me.traduciendo.oxygen</groupId>
     <artifactId>Oxygen</artifactId>
-    <version>1.6</version>
+    <version>1.7</version>
 
     <url>https://dsc.gg/liteclubdevelopment</url>
     <description>Bungee Core</description>
@@ -30,6 +30,18 @@
             <version>1.12-SNAPSHOT</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/libs/BungeeCord.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>net.dv8tion</groupId>
+            <artifactId>JDA</artifactId>
+            <version>5.0.0-beta.19</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>club.minnced</groupId>
+                    <artifactId>opus-java</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

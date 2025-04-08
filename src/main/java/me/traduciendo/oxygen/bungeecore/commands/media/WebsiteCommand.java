@@ -21,8 +21,8 @@ public class WebsiteCommand extends Command {
     public WebsiteCommand() {
         super(
                 "website",
-                Oxygen.getInstance().getConfiguration().getString("WEBSITE.PERMISSION", ""),
-                Oxygen.getInstance().getConfiguration().getStringList("WEBSITE.ALIASES").toArray(new String[0])
+                Oxygen.getInstance().getCommandsConfiguration().getString("WEBSITE.PERMISSION", ""),
+                Oxygen.getInstance().getCommandsConfiguration().getStringList("WEBSITE.ALIASES").toArray(new String[0])
         );
     }
 
@@ -32,7 +32,7 @@ public class WebsiteCommand extends Command {
             return;
         }
 
-        if (!config.getConfiguration().getBoolean("WEBSITE.ENABLED", true)) {
+        if (!Oxygen.getInstance().getCommandsYML().getConfiguration().getBoolean("WEBSITE.ENABLED", true)) {
             sender.sendMessage(CC.translate(config.getConfiguration().getString("GENERAL.DISABLED_COMMAND")));
             return;
         }

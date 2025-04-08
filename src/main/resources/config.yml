@@ -1,6 +1,6 @@
 #=============================================#
 #                                             #
-#               Oxygen | v1.6                 #
+#               Oxygen | v1.7                 #
 #            LiteClubDevelopment              #
 #                                             #
 #=============================================#
@@ -30,7 +30,20 @@ TIMER:
   SECONDS: "s" # 2s (seconds)
   SECOND: "s" # 1s (second)
 SLOTS: 3500 # Max Slots
-CLOCK-TYPE: 1 # 1 = 1d, 2h, 3m, 4s - 2 = 01d, 02h, 03m, 04s
+CLOCK-TYPE: 1 # Coming soon more types
+
+# Discord Bot
+DISCORD-BOT:
+  ENABLED: false
+  TOKEN: "INSERT-YOUR-DISCORD-BOT-TOKEN-HERE" # https://discord.com/developers/applications
+  UPDATE_INTERVAL: 10  # In seconds
+  ACTIVITY:
+    ENABLED: true
+    UPDATE-DELAY: 10 # In seconds
+    TYPE: "PLAYING" # PLAYING, COMPETING, LISTENING, WATCHING, STREAMING
+    STATUS: "ONLINE" # DO_NOT_DISTURB, IDLE, INVISIBLE, OFFLINE
+    ACTIVITY: "Oxygen Network | %online% online" # You can use: %servername%, %online%, %maxonline%, %time%, etc
+    STREAM_URL: "https://twitch.tv/liteclubdevelopment" # For TYPE: "STREAMING"
 
 # Messages
 SOCIAL:
@@ -57,30 +70,29 @@ MAINTENANCE:
     - "maintenancemode"
   HUB-NAME: "Hub-01"
   PING-TEXT-ENABLED: true
-  PING-TEXT: "&4Whitelisted"
+  PING-TEXT: "&4Maintenance"
   PING-LORE-ENABLED: true
   PING-LORE:
     - "&7&m-----------------------------&r"
-    - "&c%servername% is under maintenance."
+    - "&c&l%servername%&c is under maintenance."
     - ""
     - "&cOnline: &f%online%&7/&f%maxonline%"
     - ""
     - "&cJoin our Discord: &9%discord%"
     - "&7&m-----------------------------"
-  KICK-MESSAGE:
+  KICK-MESSAGE: # You can use %time%
     - ""
     - "&cThe network is currently in maintenance."
     - "&cAdditional info may be found at our discord!"
     - ""
     - "&cJoin our Discord&7: &9%discord%"
     - ""
-  PLAYERS: []
 
 NO-MAINTENANCE-PING-TEXT-ENABLED: false
 NO-MAINTENANCE-PING-TEXT: "0/3500"
 
 NO-MAINTENANCE-PING-LORE-ENABLED: true
-NO-MAINTENANCE-PING-LORE:
+NO-MAINTENANCE-PING-LORE: # Theme are disabled here
   - "&7&m-----------------------------&r"
   - "&b&l%servername% &f&lNetwork &7(%online%/%maxonline%)"
   - ""
@@ -88,62 +100,3 @@ NO-MAINTENANCE-PING-LORE:
   - ""
   - "&bJoin our Discord&7: &f&o%discord%"
   - "&7&m-----------------------------"
-
-# Commands
-OXYGEN_COMMAND:
-  PERMISSION: "oxygen.admin"
-  ALIASES:
-    - "motd"
-    - "omotd"
-
-TEAMSPEAK:
-  ENABLED: true
-  PERMISSION: ""
-  ALIASES:
-    - "ts"
-    - "ts3"
-
-STORE:
-  ENABLED: true
-  PERMISSION: ""
-  ALIASES: []
-
-DISCORD:
-  ENABLED: true
-  PERMISSION: ""
-  ALIASES:
-    - "dc"
-
-TWITTER:
-  ENABLED: true
-  PERMISSION: ""
-  ALIASES: []
-
-WEBSITE:
-  ENABLED: true
-  PERMISSION: ""
-  ALIASES:
-    - "web"
-
-HELP:
-  ENABLED: true
-  PERMISSION: ""
-  ALIASES: []
-
-HUB:
-  ENABLED: true
-  PERMISSION: ""
-  ALIASES:
-    - "lobby"
-
-FIND:
-  ENABLED: true
-  PERMISSION: "oxygen.command.find"
-  ALIASES:
-    - "findplayer"
-
-SERVER:
-  ENABLED: true
-  PERMISSION: "oxygen.command.server"
-  ALIASES:
-    - "play"
